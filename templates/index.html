@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scraper</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h3>Environmental News Scraper</h2>
+    {% for dates, items in news_now.items()|reverse %}
+      <ul class="responsive-table">
+        <li class="header">
+          <div class="header_center"><strong>{{dates}} <span>-</span></strong></div>
+        </li>
+        <li class="table-header">
+          <div class="col col-1"><strong>Source</strong></div>
+          <div class="col col-2"><strong>Headline</strong></div>
+          <div class="col col-3"><strong>Link</strong></div>
+        </li>
+        {% for item in items|reverse %}
+          <li class="table-row">
+            <div class="col col-1" data-label="Source">{{item.source}}</div>
+            <div class="col col-2" data-label="Headline">{{item.headline}}</div>
+            <div class="col col-3" data-label="Link"><a href={{item.link}} target="_blank">Link to article</a></div>
+          </li>
+          {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+<script type="text/javascript" src="{{ url_for('static', filename='myscripts.js') }}"></script>
+</body>
+</html>
