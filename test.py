@@ -83,11 +83,11 @@ def home():
   return render_template("index.html", news_now=news_now, days=days)
 
 #THIS WORKS!!!! NOW FIGURE OUT HOW TO NOT RUN IT TWICE EVERYTIME AND HOW TO DELETE JOBS AND HOW TO DELETE DEPLOYS ON HEROKU AND WHY GUARDIAN IS NOT WORKING AND FIX CSS
-if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-  sched = BackgroundScheduler(daemon=True)
-  sched.add_jobstore('sqlalchemy', url='postgres://vbhwwdnnenfqpi:ff9bfe31416ce143706328316533d8198f12c702e6a4a11a92d6be4b91bda964@ec2-52-205-3-3.compute-1.amazonaws.com:5432/d2ipca0idtfmuo')
-  sched.add_job(scrape,'interval',seconds=30)
-  sched.start()
+#if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+#  sched = BackgroundScheduler(daemon=True)
+#  sched.add_jobstore('sqlalchemy', url='postgres://vbhwwdnnenfqpi:ff9bfe31416ce143706328316533d8198f12c702e6a4a11a92d6be4b91bda964@ec2-52-205-3-3.compute-1.amazonaws.com:5432/d2ipca0idtfmuo')
+#  sched.add_job(scrape,'interval',seconds=30)
+#  sched.start()
 
 #run app
 if __name__ == "__main__":
