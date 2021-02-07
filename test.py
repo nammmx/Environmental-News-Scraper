@@ -42,32 +42,32 @@ class News(db.Model):
     self.headline = headline
     self.link = link
 
-def scrape():
-  now = datetime.now()
-  ########################################### GUARDIAN ##################################################
-  source_guardian = requests.get("https://www.theguardian.com/environment/all").text
-  soup_guardian = BeautifulSoup(source_guardian, "lxml")
 
-  #todays date - guardian
-  date_guardian = now.strftime("%#d-%B-%Y").lower()
+now = datetime.now()
+########################################### GUARDIAN ##################################################
+source_guardian = requests.get("https://www.theguardian.com/environment/all").text
+soup_guardian = BeautifulSoup(source_guardian, "lxml")
 
-  print("---------- GUARDIAN ----------")
-  section_guardian = soup_guardian.find("section", {"id": date_guardian})
-  #header_guardian = section_guardian.a.text
-  #print(header_guardian)
-  try:
-    for section_row in section_guardian.find_all("div", class_="fc-slice-wrapper"):
-      for links in section_row.find_all("div", class_="fc-item__container"):
-        for links_link in links.find_all("a", class_="u-faux-block-link__overlay js-headline-text"):
-          title_guardian = links_link.text
-          href_guardian = links_link.get("href")
-          #insert in database
-          #if not db.session.query(News).filter(News.link == href_guardian).count():
-          new_articles_guardian = News("guardian", now.strftime("%d %b %Y"), title_guardian, href_guardian)
-          db.session.add(new_articles_guardian)
-          db.session.commit()    
-  except Exception as e:
-    pass
+#todays date - guardian
+date_guardian = now.strftime("%#d-%B-%Y").lower()
+
+print("---------- GUARDIAN ----------")
+section_guardian = soup_guardian.find("section", {"id": date_guardian})
+#header_guardian = section_guardian.a.text
+#print(header_guardian)
+try:
+  for section_row in section_guardian.find_all("div", class_="fc-slice-wrapper"):
+    for links in section_row.find_all("div", class_="fc-item__container"):
+      for links_link in links.find_all("a", class_="u-faux-block-link__overlay js-headline-text"):
+        title_guardian = links_link.text
+        href_guardian = links_link.get("href")
+        #insert in database
+        #if not db.session.query(News).filter(News.link == href_guardian).count():
+        new_articles_guardian = News("guardian", now.strftime("%d %b %Y"), title_guardian, href_guardian)
+        db.session.add(new_articles_guardian)
+        db.session.commit()    
+except Exception as e:
+  pass
 
 @app.route('/')
 def home():
