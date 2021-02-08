@@ -202,7 +202,7 @@ def home():
 if not app.debug or os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
   sched = BackgroundScheduler(daemon=True)
   sched.add_jobstore('sqlalchemy', url='postgres://agxmaeqprxtasv:5941d7a3ce78aac46b857f313d969ff71bac653f15a44d5e0c5cf3d2437f9626@ec2-54-162-119-125.compute-1.amazonaws.com:5432/debhgpl225jvm4')
-  sched.add_job(scrape,'interval',seconds=30)
+  sched.add_job(scrape,'interval',seconds=900)
   sched.start()
 
 #run app
