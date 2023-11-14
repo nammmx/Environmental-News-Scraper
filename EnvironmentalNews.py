@@ -8,10 +8,15 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
+@import url('https://fonts.googleapis.com/css?family=Yeseva One'); 
 div.stButton > button:first-child {
     width: 200px;
     background-color: rgba(23, 48, 28, 0.95) ;
-    color: #f5e1d5;
+    color: #f5e1d5; 
+}
+div.stButton p {
+    font-family: "Georgia";
+    font-size: 15px;
 }
 
 div.stLinkButton > a:first-child {
@@ -20,42 +25,47 @@ div.stLinkButton > a:first-child {
 
 }
 div.stLinkButton p {
-    font-size: 14px;
+    font-size: 13px;
     color: #f5e1d5;
+    font-family: "Georgia";
 }
 section[data-testid="stSidebar"] {
-    top: 6rem;
+    top: 5rem;
     width: 250px !important; 
-    background-color: rgb(247, 250, 248) ;
+    background-color:#B3BCB4;
 }
 div[data-testid="collapsedControl"] {
-    top:6.5rem;
+    top:5.3rem;
 }
 div[data-testid="stExpander"] {
-    background-color: rgb(247, 250, 248) ;
+    background-color: rgba(247, 250, 248, 0.33) ;
     border: 0px solid black;
 }
 .st-emotion-cache-yf5hy5 p:nth-child(1){
     font-size: 16px;
     color: green;
+    font-family: "Georgia";
 }
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
     font-size: 25px;
     font-weight: 700;
+    font-family: 'Yeseva One';
 }
 header[data-testid="stHeader"] {
-    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699907190/dailysql/vzhlmqtme1lx09jab4rt.png');
-    background-size: contain, cover;
-    height: 6rem;
+    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
+    background-size: contain ;
+    background-repeat: no-repeat;
+    background-color:rgb(23, 48, 28);
+    height: 5rem;
 }
 .st-emotion-cache-z5fcl4 {
-    padding: 5.5rem 1rem 0rem;
+    padding: 5rem 1rem 0rem 2.5rem;
 }
 .st-emotion-cache-16txtl3 {
     padding: 1.5rem 1.5rem;
 }
 .st-dn {
-    background-color: whitesmoke;
+    background-color: #DCE0DD;
 }
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
@@ -64,8 +74,23 @@ div[data-testid="textInputRootElement"] {
     border: 0px;
     padding:0;
 }
-.css-pxxe24 {
-visibility: hidden;
+.st-emotion-cache-1qmf6ar {
+    font-family:'Georgia';
+}
+.st-emotion-cache-zt5igj {
+    font-weight: 600;
+    font-family:'Yeseva One';
+}
+div[data-testid="stMarkdownContainer"] h2 {
+    font-family:'Yeseva One';
+    font-weight: 600;
+}
+.st-emotion-cache-1wrcr25 {
+    background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
+}
+.st-emotion-cache-1hhivay {
+    bordder-radius: 0;
+    border-color: rgba(255, 255, 255, 0.05);
 }
 
 </style>
@@ -78,8 +103,6 @@ database = st.secrets["database"]
 username = st.secrets["username"]
 port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
-
-
 
 #st.title('Environmental News')
 
@@ -169,9 +192,10 @@ result = display_date()
 if result[1] == "All":
     result_display = "All Time"
 else:
-    result_display = datetime.datetime.strptime(result[1], "%Y-%m-%d %H:%M:%S").strftime('%B %d, %Y')
+    result_display = datetime.datetime.strptime(result[1], "%Y-%m-%d %H:%M:%S").strftime('%b. %d, %Y')
 
-st.title(f"Environmental News from {result_display}")
+st.header(f"News from {result_display}")
+
 st.sidebar.header("Date Filter")
 if st.sidebar.button("Today", on_click=today):
     pass
