@@ -86,7 +86,7 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-weight: 600;
 }
 .st-emotion-cache-1wrcr25 {
-    background: radial-gradient(rgba(23, 48, 28, 0.55), transparent);
+    background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
 }
 .st-emotion-cache-1hhivay {
     bordder-radius: 0;
