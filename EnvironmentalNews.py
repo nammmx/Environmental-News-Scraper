@@ -122,7 +122,7 @@ div[data-baseweb="select"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
     border: 0px;
 }
-div[data-baseweb="select"] .st-cp {
+div[data-testid="tooltipHoverTarget"] .st-cp {
     color: #f5e1d5;
 }
 div[data-baseweb="popover"] .st-dk {
