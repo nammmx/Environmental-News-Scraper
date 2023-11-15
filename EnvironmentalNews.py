@@ -65,7 +65,7 @@ header[data-testid="stHeader"] {
     padding: 1.5rem 1.5rem;
 }
 .st-dn {
-    background-color: #DCE0DD;
+    background-color: transparent;
 }
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
