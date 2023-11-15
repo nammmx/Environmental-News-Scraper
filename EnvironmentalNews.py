@@ -125,6 +125,9 @@ div[data-baseweb="select"] .st-dk {
 div[data-baseweb="popover"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
 }
+.st-emotion-cache-35i14j {
+    background: #B3BCB4;
+}
 
 </style>
 ''', unsafe_allow_html=True)
