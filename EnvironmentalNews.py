@@ -101,6 +101,9 @@ div[data-testid="stMarkdownContainer"] h2 {
 .st-emotion-cache-rq8rg6:hover {
     color: rgb(23, 48, 28);
 }
+.st-bu {
+    background-color: #DCE0DD;
+}
 </style>
 ''', unsafe_allow_html=True)
 
