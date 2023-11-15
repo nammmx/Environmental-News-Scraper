@@ -35,10 +35,10 @@ section[data-testid="stSidebar"] {
     background-color:#B3BCB4;
 }
 div[data-testid="collapsedControl"] {
-    top:5.3rem;
+    top:5.15rem;
 }
 div[data-testid="stExpander"] {
-    background-color: rgba(247, 250, 248, 0.33) ;
+    background-color: rgba(247, 250, 248, 0.275) ;
     border: 0px solid black;
 }
 .st-emotion-cache-yf5hy5 p:nth-child(1){
@@ -59,7 +59,7 @@ header[data-testid="stHeader"] {
     height: 5rem;
 }
 .st-emotion-cache-z5fcl4 {
-    padding: 5rem 1rem 0rem 2.5rem;
+    padding: 5rem 0.5rem 0rem 1rem;
 }
 .st-emotion-cache-16txtl3 {
     padding: 1.5rem 1.5rem;
@@ -86,26 +86,35 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-weight: 600;
 }
 .st-emotion-cache-1wrcr25 {
-    background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
+    background: radial-gradient(rgba(23, 48, 28, 0.55), transparent);
 }
 .st-emotion-cache-1hhivay {
     bordder-radius: 0;
     border-color: rgba(255, 255, 255, 0.05);
 }
-
+.st-emotion-cache-1kzf7z {
+    gap: 2rem;
+}
+.st-emotion-cache-sbovo5 {
+    gap: 2rem;
+}
+.st-emotion-cache-rq8rg6:hover {
+    color: rgb(23, 48, 28);
+}
 </style>
 ''', unsafe_allow_html=True)
 
 
 
-hostname = st.secrets["hostname"]
-database = st.secrets["database"]
-username = st.secrets["username"]
-port_id = st.secrets["port_id"]
-pwd = st.secrets["pwd"]
+hostname = 'localhost'
+database = 'environmentalnewsscraper'
+username = 'environmentalnewsscraper_admin'
+port_id = '5432'
+pwd = 'environmentalnewsscraper1997'
 
 #st.title('Environmental News')
 
+@st.cache_data
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
         
     conn = None
@@ -156,14 +165,14 @@ def display_date():
     if st.session_state.count == 0:
         for i in range(0, len(lst1[0])):
             lst.append(lst1[0][i])
-        lst = tuple(lst)
+        #lst = tuple(lst)
         show_date = "All"
     else:
         date = lst1[st.session_state.count]
         #st.write(date)
         lst.append(date)
-        lst.append( date_list[0])
-        lst = tuple(lst)
+        #lst.append( date_list[0])
+        #lst = tuple(lst)
         show_date = lst[0]
     return lst, show_date
     
@@ -215,8 +224,8 @@ with st.sidebar.form("my-form"):
     keyword = ""
 
 
-
 ####################################################################################################### display articles
+@st.cache_data
 def display(df):
     df = df.sort_values("date_created", ascending=False)
     for index, row in df.iterrows():
@@ -231,60 +240,78 @@ def display(df):
             st.link_button("Read Article", display_link)
             st.caption(display_date.strftime('%B %d, %Y')) 
 
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+
 ####################################################################################################### tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["All", "Air", "Water", "Energy", "Pollution", "Wildlife", "Greener Living", "Environmental Law", "Climate Change"])
 with tab1:
-    df = execute_query(query = f"""
-                SELECT news_id,  date_created::date, title, topic, summary, link FROM news WHERE DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
-    #st.dataframe(df)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
     
 with tab2:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Air' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Air"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab3:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Water' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Water"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab4:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Energy' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Energy"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab5:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Pollution' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Pollution"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab6:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Wildlife' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Wildlife"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab7:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Greener Living' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Greener Living"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab8:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Environmental Law' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Environmental Law"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
 with tab9:
-    df = execute_query(query = f"""
-                SELECT news_id, date_created::date, title, topic, summary, link FROM news WHERE topic = 'Climate Change' AND DATE_TRUNC('day', date_created) IN {result[0]} AND (title ILIKE '%{keyword}%' OR summary ILIKE '%{keyword}%');
-                """, hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[df["topic"]=="Climate Change"]
+    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
     display(df)
 
