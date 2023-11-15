@@ -178,7 +178,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
 
 
 ####################################################################################################### date filters
-min_date = datetime.date(2023,11,10)
+min_date = datetime.date(2023,11,14)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
 
 dates = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
