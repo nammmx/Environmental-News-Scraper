@@ -117,6 +117,10 @@ ul[data-testid="stVirtualDropdown"] li:hover {
 .st-dw {
     padding-left: 45px;
 }
+div[data-baseweb="select"] .st-dk {
+    background-color: rgba(23, 48, 28, 0.95);
+    border: 0px;
+}
 </style>
 ''', unsafe_allow_html=True)
 
