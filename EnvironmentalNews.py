@@ -122,11 +122,11 @@ div[data-baseweb="select"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
     border: 0px;
 }
-div[data-testid="tooltipHoverTarget"] .st-cp {
-    color: #f5e1d5;
-}
 div[data-baseweb="popover"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
+}
+div[data-baseweb="popover"] li {
+    color: #f5e1d5;
 }
 .st-emotion-cache-35i14j {
     background: #B3BCB4;
