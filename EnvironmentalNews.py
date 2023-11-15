@@ -104,13 +104,11 @@ div[data-testid="stMarkdownContainer"] h2 {
 </style>
 ''', unsafe_allow_html=True)
 
-
-
-hostname = 'localhost'
-database = 'environmentalnewsscraper'
-username = 'environmentalnewsscraper_admin'
-port_id = '5432'
-pwd = 'environmentalnewsscraper1997'
+hostname = st.secrets["hostname"]
+database = st.secrets["database"]
+username = st.secrets["username"]
+port_id = st.secrets["port_id"]
+pwd = st.secrets["pwd"]
 
 #st.title('Environmental News')
 
