@@ -130,6 +130,7 @@ div[data-baseweb="popover"] li {
 }
 .st-emotion-cache-35i14j {
     background: #B3BCB4;
+    color: rgba(23, 48, 28, 0.95);
 }
 
 </style>
