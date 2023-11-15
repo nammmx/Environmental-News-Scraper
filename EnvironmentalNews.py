@@ -102,7 +102,7 @@ div[data-testid="stMarkdownContainer"] h2 {
     color: rgb(23, 48, 28);
 }
 .st-bu {
-    background-color: #DCE0DD;
+    background-color: transparent;
 }
 </style>
 ''', unsafe_allow_html=True)
