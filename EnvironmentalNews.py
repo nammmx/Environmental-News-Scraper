@@ -101,7 +101,7 @@ div[data-testid="stMarkdownContainer"] h2 {
 .st-emotion-cache-rq8rg6:hover {
     color: rgb(23, 48, 28);
 }
-div[data-baseweb="select"] .st-dk {
+div[data-baseweb="select"] .st-bx {
     background-color: rgba(23, 48, 28, 0.95);
 }
 div[data-baseweb="popover"] .st-dk  {
