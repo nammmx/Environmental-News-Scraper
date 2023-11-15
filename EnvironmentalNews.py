@@ -122,11 +122,12 @@ div[data-baseweb="select"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
     border: 0px;
 }
+div[data-baseweb="select"] .st-cp {
+    color: #f5e1d5;
+}
 div[data-baseweb="popover"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
 }
-
-
 .st-emotion-cache-35i14j {
     background: #B3BCB4;
 }
