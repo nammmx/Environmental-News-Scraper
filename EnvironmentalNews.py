@@ -112,18 +112,11 @@ div[data-baseweb="select"] .st-dj {
     border: 0;
     color: #f5e1d5;
 }
-.st-f3 .st-dj {
-    background-color: rgba(23, 48, 28, 0.95);
-}
-.st-cp {
-    color: #f5e1d5;
-} 
+ 
 div[data-baseweb="select"] {
     font-family: "Georgia";
 }
-.st-emotion-cache-35i14j {
-    background: #B3BCB4;
-}
+
 ul[data-testid="stVirtualDropdown"] li {
     text-align: center;
     font-family: "Georgia";
