@@ -101,11 +101,41 @@ div[data-testid="stMarkdownContainer"] h2 {
 .st-emotion-cache-rq8rg6:hover {
     color: rgb(23, 48, 28);
 }
-.st-bu {
-    background-color: transparent;
+div[data-baseweb="select"] .st-dk {
+    background-color: rgba(23, 48, 28, 0.95);
+}
+div[data-baseweb="popover"] .st-dk  {
+    background-color: rgba(23, 48, 28, 0.95);
+}
+div[data-baseweb="select"] .st-dj {
+    background-color: rgba(23, 48, 28, 0.95);
+    border: 0;
+    color: #f5e1d5;
+}
+.st-f3 .st-dj {
+    background-color: rgba(23, 48, 28, 0.95);
+}
+.st-cp {
+    color: #f5e1d5;
+} 
+div[data-baseweb="select"] {
+    font-family: "Georgia";
+}
+.st-emotion-cache-35i14j {
+    background: #B3BCB4;
+}
+ul[data-testid="stVirtualDropdown"] li {
+    text-align: center;
+    font-family: "Georgia";
+}
+ul[data-testid="stVirtualDropdown"] li:hover {
+    color: rgba(23, 48, 28, 0.95);
+    background-color:#B3BCB4;
 }
 </style>
 ''', unsafe_allow_html=True)
+
+
 
 hostname = st.secrets["hostname"]
 database = st.secrets["database"]
@@ -146,11 +176,12 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
 
 
 ####################################################################################################### date filters
-min_date = datetime.date(2023,11,6)
+min_date = datetime.date(2023,11,14)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
 
-date_list = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
-date_list = [date_obj.strftime("%Y-%m-%d %H:%M:%S") for date_obj in date_list]
+dates = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
+date_list = [date_obj.strftime("%Y-%m-%d %H:%M:%S") for date_obj in dates]
+date_list_filter = [date_obj.strftime("%Y-%m-%d") for date_obj in dates]
 
 lst1 = []
 lst1.append(date_list)
@@ -161,60 +192,34 @@ for i in range(0,len(date_list)):
 if 'count' not in st.session_state:
     st.session_state.count = len(date_list)
 
+st.sidebar.header("Date Filter")
+
 def display_date():
     lst = []
-    if st.session_state.count == 0:
+    show_date = ""
+    option = st.sidebar.selectbox(
+        label="select", label_visibility= "collapsed",
+        options=(date_list_filter), index=len(date_list_filter)-1)
+    lst.append(option)
+    if st.sidebar.button("Today"):
+        lst = []
+        lst.append(date_list_filter[len(date_list_filter)-1])
+        show_date = date_list_filter[len(date_list_filter)-1]
+    if st.sidebar.button("All Time"):
+        lst = []
         for i in range(0, len(lst1[0])):
             lst.append(lst1[0][i])
-        #lst = tuple(lst)
         show_date = "All"
-    else:
-        date = lst1[st.session_state.count]
-        #st.write(date)
-        lst.append(date)
-        #lst.append( date_list[0])
-        #lst = tuple(lst)
-        show_date = lst[0]
     return lst, show_date
-    
-def next_date():
-    if st.session_state.count == 0:
-        st.session_state.count += len(date_list)
-    elif st.session_state.count + 1 >= len(date_list)+1:
-        pass
-    else:
-        st.session_state.count += 1
-
-def previous_date():
-    if st.session_state.count == 0:
-        st.session_state.count += len(date_list)
-    elif st.session_state.count > 1:
-        st.session_state.count -= 1
-
-def all_date():
-    st.session_state.count = 0
-
-def today():
-    st.session_state.count = len(date_list)
-
 
 result = display_date()
 if result[1] == "All":
     result_display = "All Time"
 else:
-    result_display = datetime.datetime.strptime(result[1], "%Y-%m-%d %H:%M:%S").strftime('%b. %d, %Y')
+    result_display = datetime.datetime.strptime(result[0][0], "%Y-%m-%d").strftime('%b. %d, %Y')
 
 st.header(f"News from {result_display}")
 
-st.sidebar.header("Date Filter")
-if st.sidebar.button("Today", on_click=today):
-    pass
-if st.sidebar.button("All Time", on_click=all_date):
-    pass
-if st.sidebar.button("Previous Day", on_click=previous_date):
-    pass
-if st.sidebar.button("Next Day", on_click=next_date):
-    pass
 
 ####################################################################################################### keyword filter
 st.sidebar.header("Keyword Filter")
