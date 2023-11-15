@@ -127,6 +127,7 @@ div[data-baseweb="popover"] .st-dk {
 }
 div[data-baseweb="popover"] li {
     color: #f5e1d5;
+    background-color: rgba(23, 48, 28, 0.95);
 }
 div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
     background: #B3BCB4;
