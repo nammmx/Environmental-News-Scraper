@@ -122,9 +122,7 @@ div[data-baseweb="select"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
     border: 0px;
 }
-div[data-baseweb="select"] .st-dl {
-    background-color: rgba(23, 48, 28, 0.95);
-}
+
 </style>
 ''', unsafe_allow_html=True)
 
