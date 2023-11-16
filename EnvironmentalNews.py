@@ -86,7 +86,7 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Yeseva One';
     font-weight: 600;
 }
-.st-emotion--1wrcr25 {
+.appview-container {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
 }
 .st-emotion-cache-1hhivay {
