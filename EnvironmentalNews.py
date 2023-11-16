@@ -137,6 +137,10 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
     color: rgba(23, 48, 28, 0.95) !important;
 }
 
+div[data-baseweb="select"] svg {
+    color: #f5e1d5;
+}
+
 </style>
 ''', unsafe_allow_html=True)
 
