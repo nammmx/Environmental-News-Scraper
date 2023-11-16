@@ -50,6 +50,7 @@ div[data-testid="stExpander"] {
     font-size: 25px;
     font-weight: 700;
     font-family: 'Yeseva One';
+    line-height:2.5;
 }
 header[data-testid="stHeader"] {
     background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
@@ -84,7 +85,6 @@ div[data-testid="textInputRootElement"] {
 div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Yeseva One';
     font-weight: 600;
-    line-height:2.5;
 }
 .st-emotion-cache-1wrcr25 {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
