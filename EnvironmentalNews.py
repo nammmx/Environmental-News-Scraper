@@ -62,7 +62,7 @@ header[data-testid="stHeader"] {
 .st-emotion-cache-z5fcl4 {
     padding: 5rem 0.5rem 0rem 1rem;
 }
-.st-emotion-cache-16txtl3 {
+.st-emotion--16txtl3 {
     padding: 1.5rem 1.5rem;
 }
 .st-dn {
@@ -71,14 +71,14 @@ header[data-testid="stHeader"] {
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
 }
-.st-emotion-cache-1aqpwna {
+.st-emotion--1aqpwna {
     border: 0px;
     padding:0;
 }
-.st-emotion-cache-1qmf6ar {
+.st-emotion--1qmf6ar {
     font-family:'Georgia';
 }
-.st-emotion-cache-zt5igj {
+.st-emotion--zt5igj {
     font-weight: 600;
     font-family:'Yeseva One';
 }
@@ -86,7 +86,7 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Yeseva One';
     font-weight: 600;
 }
-.st-emotion-cache-1wrcr25 {
+.st-emotion--1wrcr25 {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
 }
 .st-emotion-cache-1hhivay {
@@ -150,7 +150,7 @@ port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
 
 
-@st.cache_data
+@st.cache_data(ttl=3600)
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
         
     conn = None
@@ -248,7 +248,7 @@ with st.sidebar.form("my-form"):
 
 
 ####################################################################################################### display articles
-@st.cache_data
+@st.cache_data(ttl=3600)
 def display(df):
     df = df.sort_values("date_created", ascending=False)
     for index, row in df.iterrows():
