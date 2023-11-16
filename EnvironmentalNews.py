@@ -84,6 +84,7 @@ div[data-testid="textInputRootElement"] {
 div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Yeseva One';
     font-weight: 600;
+    line-height:2.5;
 }
 .st-emotion-cache-1wrcr25 {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
