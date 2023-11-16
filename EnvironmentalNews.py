@@ -59,7 +59,8 @@ header[data-testid="stHeader"] {
     background-color:rgb(23, 48, 28);
     height: 5rem;
 }
-.st-emotion-cache-z5fcl4 {
+
+.appview-container > section:nth-child(2) > div:nth-child(1) {
     padding: 5rem 0.5rem 0rem 1rem;
 }
 .st-emotion--16txtl3 {
