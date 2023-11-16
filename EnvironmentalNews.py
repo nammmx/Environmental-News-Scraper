@@ -79,7 +79,7 @@ div[data-testid="stForm"] {
 div[data-testid="stExpanderDetails"] p {
     font-family:'Georgia';
 }
-.st-emotion--zt5igj {
+div[data-testid="StyledLinkIconContainer"] {
     font-weight: 600;
     font-family:'Yeseva One';
 }
