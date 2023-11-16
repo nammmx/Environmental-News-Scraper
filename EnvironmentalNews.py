@@ -150,7 +150,7 @@ port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data(ttl=3600, show_spinner=False)
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
         
     conn = None
@@ -248,7 +248,7 @@ with st.sidebar.form("my-form"):
 
 
 ####################################################################################################### display articles
-ttl=3600
+st.cache_data(ttl=3600, show_spinner=False)
 def display(df):
     df = df.sort_values("date_created", ascending=False)
     for index, row in df.iterrows():
