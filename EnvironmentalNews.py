@@ -150,7 +150,7 @@ port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
 
 
-@st.cache_data(ttl=3600)
+@st.cache_data()
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
         
     conn = None
