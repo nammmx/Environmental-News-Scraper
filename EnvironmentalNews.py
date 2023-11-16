@@ -88,7 +88,7 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-weight: 600;
 }
 
-div[data-testid="stAppViewContainer"] > section:nth-child(2) > div:nth-child(1) {
+.st-emotion-cache-z5fcl4 {
     padding: 5rem 0.5rem 0rem 1rem;
 }
 
