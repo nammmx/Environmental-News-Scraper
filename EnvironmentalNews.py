@@ -90,7 +90,7 @@ div[data-testid="stMarkdownContainer"] h2 {
 .appview-container {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
 }
-.st-emotion-cache-1hhivay {
+div[data-testid="stExpander"] > details {
     bordder-radius: 0;
     border-color: rgba(255, 255, 255, 0.05);
 }
