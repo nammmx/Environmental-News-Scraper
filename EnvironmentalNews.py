@@ -41,12 +41,12 @@ div[data-testid="stExpander"] {
     background-color: rgba(247, 250, 248, 0.275) ;
     border: 0px solid black;
 }
-div[data-testid="stMarkdownContainer"] p:nth-child(1) {
+.st-emotion-cache-yf5hy5 p:nth-child(1) {
     font-size: 16px;
     color: green;
     font-family: "Georgia";
 }
-div[data-testid="stMarkdownContainer"] p:nth-child(2) {
+.st-emotion-cache-yf5hy5 p:nth-child(2) {
     font-size: 25px;
     font-weight: 700;
     font-family: 'Yeseva One';
