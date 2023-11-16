@@ -11,7 +11,7 @@ st.markdown('''
 @import url('https://fonts.googleapis.com/css?family=Yeseva One'); 
 
 body * { 
-    -webkit-font-smoothing: antialiased !important; 
+    -webkit-font-smoothing: subpixel-antialiased !important; 
     text-rendering:optimizeLegibility !important;
 }
 
