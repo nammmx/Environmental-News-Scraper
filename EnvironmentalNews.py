@@ -76,7 +76,7 @@ div[data-testid="stForm"] {
     border: 0px;
     padding:0;
 }
-.st-emotion--1qmf6ar {
+div[data-testid="stExpanderDetails"] p {
     font-family:'Georgia';
 }
 .st-emotion--zt5igj {
