@@ -141,6 +141,10 @@ div[data-baseweb="select"] svg {
     color: #f5e1d5;
 }
 
+div[data-testid="stForm"] > div[data-baseweb="input"] {
+    background-color: #DFE3E0;
+}
+
 </style>
 ''', unsafe_allow_html=True)
 
