@@ -63,7 +63,7 @@ header[data-testid="stHeader"] {
 .appview-container > section:nth-child(2) > div:nth-child(1) {
     padding: 5rem 0.5rem 0rem 1rem;
 }
-.st-emotion--16txtl3 {
+.appview-container > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
     padding: 1.5rem 1.5rem;
 }
 .st-dn {
