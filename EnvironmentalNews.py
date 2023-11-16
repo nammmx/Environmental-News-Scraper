@@ -48,7 +48,7 @@ div[data-testid="stExpander"] {
 }
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 600;
     font-family: 'Yeseva One';
     line-height:1.5;
     letter-spacing: 0.3px;
