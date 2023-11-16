@@ -61,7 +61,7 @@ header[data-testid="stHeader"] {
 }
 
 div[data-testid="stAppViewContainer"] > section:nth-child(2) {
-    overflow:hidden;
+    overflow-x: hidden;
 }
 
 .appview-container > section:nth-child(2) > div:nth-child(1) {
