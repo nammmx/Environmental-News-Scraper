@@ -60,6 +60,10 @@ header[data-testid="stHeader"] {
     height: 5rem;
 }
 
+div[data-testid="stAppViewContainer"] > section:nth-child(2) {
+    overflow:hidden;
+}
+
 .appview-container > section:nth-child(2) > div:nth-child(1) {
     padding: 5rem 0.5rem 0rem 1rem;
 }
