@@ -141,7 +141,7 @@ div[data-baseweb="select"] svg {
     color: #f5e1d5;
 }
 
-div[data-testid="stForm"] > .st-dk {
+div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
 }
 
