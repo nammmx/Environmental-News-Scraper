@@ -9,6 +9,12 @@ st.set_page_config(layout="wide")
 st.markdown('''
 <style>
 @import url('https://fonts.googleapis.com/css?family=Yeseva One'); 
+
+body * { 
+    -webkit-font-smoothing: antialiased !important; 
+    text-rendering:optimizeLegibility !important;
+}
+
 div.stButton > button:first-child {
     width: 200px;
     background-color: rgba(23, 48, 28, 0.95) ;
