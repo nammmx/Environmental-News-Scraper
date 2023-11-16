@@ -145,7 +145,6 @@ username = st.secrets["username"]
 port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
 
-#st.title('Environmental News')
 
 @st.cache_data
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
@@ -176,9 +175,9 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
         if conn is not None:
             conn.close()
 
-
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
-min_date = datetime.date(2023,11,14)
+min_date = datetime.date(2023,11,10)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
 
 dates = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
@@ -190,46 +189,58 @@ lst1.append(date_list)
 for i in range(0,len(date_list)):
     lst1.append(date_list[i])
 
+if 'list' not in st.session_state:
+    st.session_state.list = []
+if 'date' not in st.session_state:
+    st.session_state.date = [date_list_filter[len(date_list_filter)-1]]
 
-if 'count' not in st.session_state:
-    st.session_state.count = len(date_list)
+if 'show_date' not in st.session_state:
+    st.session_state.show_date = date_list_filter[len(date_list_filter)-1]
+
+def select_date():
+    st.session_state.list.append(st.session_state.option)
+    st.session_state.date = st.session_state.list[-1:]
+    st.session_state.show_date = st.session_state.list[-1]
+
+def today():
+    st.session_state.date = [date_list_filter[len(date_list_filter)-1]]
+    st.session_state.show_date = date_list_filter[len(date_list_filter)-1]
+
+def all_dates():
+    st.session_state.date = lst1[0]
+    st.session_state.show_date = "All"
+
+def clear_text():
+    st.session_state["text"] = ""
+
 
 st.sidebar.header("Date Filter")
 
-def display_date():
-    lst = []
-    show_date = ""
-    option = st.sidebar.selectbox(
-        label="select", label_visibility= "collapsed",
-        options=(date_list_filter), index=len(date_list_filter)-1)
-    lst.append(option)
-    if st.sidebar.button("Today"):
-        lst = []
-        lst.append(date_list_filter[len(date_list_filter)-1])
-        show_date = date_list_filter[len(date_list_filter)-1]
-    if st.sidebar.button("All Time"):
-        lst = []
-        for i in range(0, len(lst1[0])):
-            lst.append(lst1[0][i])
-        show_date = "All"
-    return lst, show_date
+option = [st.sidebar.selectbox(
+    label="select", label_visibility= "collapsed",
+    options=(date_list_filter), index=len(date_list_filter)-1, on_change=select_date, key="option")]
 
-result = display_date()
-if result[1] == "All":
+if st.sidebar.button("Today", on_click=today):
+    pass
+
+if st.sidebar.button("All Time", on_click=all_dates):
+    pass
+
+
+if st.session_state.show_date == "All":
     result_display = "All Time"
 else:
-    result_display = datetime.datetime.strptime(result[0][0], "%Y-%m-%d").strftime('%b. %d, %Y')
-
+    result_display = datetime.datetime.strptime(st.session_state.show_date, "%Y-%m-%d").strftime('%b. %d, %Y')
 st.header(f"News from {result_display}")
-
 
 ####################################################################################################### keyword filter
 st.sidebar.header("Keyword Filter")
 with st.sidebar.form("my-form"):
-   keyword = st.text_input(label="",placeholder='Search Keyword', label_visibility="collapsed")
+   st.session_state.keyword = st.text_input(label="",placeholder='Search Keyword', label_visibility="collapsed", key="text")
    submit_button = st.form_submit_button("Search")
-   if st.form_submit_button('Reset'):
-    keyword = ""
+   if st.form_submit_button('Reset', on_click=clear_text):
+    st.session_state.keyword = ""
+
 
 
 ####################################################################################################### display articles
@@ -248,78 +259,78 @@ def display(df):
             st.link_button("Read Article", display_link)
             st.caption(display_date.strftime('%B %d, %Y')) 
 
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+
 
 ####################################################################################################### tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["All", "Air", "Water", "Energy", "Pollution", "Wildlife", "Greener Living", "Environmental Law", "Climate Change"])
 with tab1:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
     
 with tab2:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Air"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab3:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Water"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab4:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Energy"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab5:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Pollution"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab6:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Wildlife"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab7:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Greener Living"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab8:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Environmental Law"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab9:
-    date_filter = full_df["date_created"].dt.floor("D").isin(result[0])
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[df["topic"]=="Climate Change"]
-    df = df[(df["title"].str.contains(keyword, case=False)) | (df["summary"].str.contains(keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
