@@ -94,7 +94,7 @@ div[data-testid="stExpander"] > details {
     bordder-radius: 0;
     border-color: rgba(255, 255, 255, 0.05);
 }
-.st-emotion-cache-1kzf7z {
+div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
     gap: 2rem;
 }
 .st-emotion-cache-sbovo5 {
