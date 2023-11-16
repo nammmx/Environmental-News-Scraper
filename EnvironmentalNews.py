@@ -87,6 +87,11 @@ div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Yeseva One';
     font-weight: 600;
 }
+
+div[data-testid="stAppViewContainer"] > section:nth-child(2) > div:nth-child(1) {
+    padding: 5rem 0.5rem 0rem 1rem;
+}
+
 .appview-container {
     background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
 }
