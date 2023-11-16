@@ -72,7 +72,7 @@ header[data-testid="stHeader"] {
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
 }
-.st-emotion--1aqpwna {
+div[data-testid="stForm"] {
     border: 0px;
     padding:0;
 }
