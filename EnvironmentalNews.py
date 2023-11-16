@@ -115,7 +115,7 @@ ul[data-testid="stVirtualDropdown"] li:hover {
     background-color:#B3BCB4;
 }
 
-div[data-baseweb="select"] > div:first-child > div > div > div:first-child {
+div[data-baseweb="select"] > div:first-child > div > div:first-child {
     padding-left: 45px;
     color: #f5e1d5;
 }
