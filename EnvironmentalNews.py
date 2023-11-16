@@ -120,6 +120,7 @@ ul[data-testid="stVirtualDropdown"] li:hover {
 }
 div[data-baseweb="select"] div {
     background-color: rgba(23, 48, 28, 0.95);
+    background-color: yellow;
     border: 0px;
 }
 div[data-baseweb="popover"] .st-dk {
