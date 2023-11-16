@@ -118,6 +118,11 @@ ul[data-testid="stVirtualDropdown"] li:hover {
     padding-left: 45px;
     color: #f5e1d5;
 }
+div[data-baseweb="select"] div:nth-of-type(2) div {
+    padding-left: 45px;
+    color: #f5e1d5;
+}
+
 div[data-baseweb="select"] div {
     background-color: rgba(23, 48, 28, 0.95);
     color: #f5e1d5;
