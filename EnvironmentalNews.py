@@ -49,7 +49,7 @@ div[data-testid="stExpander"] {
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
     font-size: 25px;
     font-weight: 700;
-    font-family: 'Georgia';
+    font-family: 'Yeseva One';
     line-height:1.5;
 }
 header[data-testid="stHeader"] {
