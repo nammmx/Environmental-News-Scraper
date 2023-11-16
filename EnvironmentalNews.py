@@ -53,7 +53,7 @@ div[data-testid="stExpander"] {
     font-family: "Georgia";
 }
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 600;
     font-family: 'Yeseva One';
     line-height:1.5;
