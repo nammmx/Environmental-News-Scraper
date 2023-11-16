@@ -97,10 +97,8 @@ div[data-testid="stExpander"] > details {
 div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
     gap: 2rem;
 }
-.st-emotion-cache-sbovo5 {
-    gap: 2rem;
-}
-.st-emotion-cache-rq8rg6:hover {
+
+div[data-testid="stExpander"] > details > summary:hover {
     color: rgb(23, 48, 28);
 }
  
