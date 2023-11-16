@@ -50,7 +50,7 @@ div[data-testid="stExpander"] {
     font-size: 25px;
     font-weight: 700;
     font-family: 'Yeseva One';
-    line-height:normal;
+    line-height:1.5;
 }
 header[data-testid="stHeader"] {
     background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
