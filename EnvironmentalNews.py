@@ -51,6 +51,7 @@ div[data-testid="stExpander"] {
     font-weight: 700;
     font-family: 'Yeseva One';
     line-height:1.5;
+    letter-spacing: normal;
 }
 header[data-testid="stHeader"] {
     background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
