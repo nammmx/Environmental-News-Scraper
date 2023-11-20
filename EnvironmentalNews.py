@@ -302,7 +302,7 @@ with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False))]
     display(df)
     
 with tab2:
