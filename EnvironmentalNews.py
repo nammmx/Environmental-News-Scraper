@@ -183,7 +183,7 @@ port_id = st.secrets["port_id"]
 pwd = st.secrets["pwd"]
 
 
-@st.cache_data(ttl=3600, show_spinner=False)
+@st.cache_data(ttl=1800, show_spinner=False)
 def execute_query(query, hostname, database, username, port_id, pwd, result = None):
         
     conn = None
@@ -283,7 +283,7 @@ st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diff
 
 
 ####################################################################################################### display articles
-st.cache_data(ttl=3600, show_spinner=False)
+st.cache_data(ttl=1800, show_spinner=False)
 def display(df):
     df = df.sort_values("date_created", ascending=False)
     for index, row in df.iterrows():
