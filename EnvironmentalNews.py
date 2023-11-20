@@ -164,7 +164,11 @@ div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
 }
 
-
+div[data-testid="stSidebarUserContent"] > div[data-testid="stMarkdownContainer"] p {
+    line-height: 1.1;
+    font-family: "Georgia";
+    font-size: 14px;
+}
 
 </style>
 ''', unsafe_allow_html=True)
@@ -274,7 +278,7 @@ with st.sidebar.form("my-form"):
     st.session_state.keyword = ""
 
 st.sidebar.header("About")
-st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diffusion XL 1.0\n\nSummary: HuggingFace BART Large CNN""")
+st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diffusion XL 1.0\n\nSummary: HuggingFace BART - Large CNN""")
 
 
 ####################################################################################################### display articles
