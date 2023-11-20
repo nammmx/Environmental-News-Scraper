@@ -297,7 +297,7 @@ def display(df):
 
 
 ####################################################################################################### tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["All", "Air", "Water", "Energy", "Pollution", "Wildlife", "Greener Living", "Environmental Law", "Climate Change"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["All", "Air", "Climate Change", "Energy", "Environmental Law", "Greener Living", "Pollution", "Water", "Wildlife"])
 with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
@@ -313,7 +313,7 @@ with tab2:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab3:
+with tab8:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
@@ -329,7 +329,7 @@ with tab4:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab5:
+with tab7:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
@@ -337,7 +337,7 @@ with tab5:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab6:
+with tab9:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
@@ -345,7 +345,7 @@ with tab6:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab7:
+with tab6:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
@@ -353,7 +353,7 @@ with tab7:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab8:
+with tab5:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
@@ -361,7 +361,7 @@ with tab8:
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
-with tab9:
+with tab3:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
