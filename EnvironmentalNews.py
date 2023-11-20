@@ -248,7 +248,7 @@ st.sidebar.header("Date Filter")
 
 option = [st.sidebar.selectbox(
     label="select", label_visibility= "collapsed",
-    options=(date_list_filter), index=len(date_list_filter)-1, on_change=select_date, key="option")]
+    options=(date_list_filter[::-1]), index=len(date_list_filter)-1, on_change=select_date, key="option")]
 
 if st.sidebar.button("Today", on_click=today):
     pass
