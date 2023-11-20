@@ -307,7 +307,7 @@ with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
     
 with tab2:
@@ -315,7 +315,7 @@ with tab2:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Air") | (df["topic_2"]=="Air")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab8:
@@ -323,7 +323,7 @@ with tab8:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Society") | (df["topic_2"]=="Society")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab9:
@@ -331,7 +331,7 @@ with tab9:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Water") | (df["topic_2"]=="Water")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab4:
@@ -339,7 +339,7 @@ with tab4:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Energy") | (df["topic_2"]=="Energy")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab7:
@@ -347,7 +347,7 @@ with tab7:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Polluiton") | (df["topic_2"]=="Pollution")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab10:
@@ -355,7 +355,7 @@ with tab10:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Wildlife") | (df["topic_2"]=="Wildlife")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab6:
@@ -363,15 +363,14 @@ with tab6:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Greener Living") | (df["topic_2"]=="Greener Living")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
-    display(df)
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
 
 with tab5:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Environmental Law") | (df["topic_2"]=="Environmental Law")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
 with tab3:
@@ -379,6 +378,6 @@ with tab3:
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
     df = df[(df["topic"]=="Climate Change") | (df["topic_2"]=="Climate Change")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False))]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     display(df)
 
