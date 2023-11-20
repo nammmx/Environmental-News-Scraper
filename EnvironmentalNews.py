@@ -212,7 +212,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
         if conn is not None:
             conn.close()
 
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE summary IS NOT NULL;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE summary IS NOT NULL AND article IS NOT NULL;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
 min_date = datetime.date(2023,11,18)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
