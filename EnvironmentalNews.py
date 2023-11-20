@@ -286,8 +286,8 @@ st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diff
 st.cache_data(ttl=3600, show_spinner=False)
 def display(df):
     df = df.sort_values("date_created", ascending=False)
-    try:
-        for index, row in df.iterrows():
+    for index, row in df.iterrows():
+        try:
             display_date = row[1]
             display_title = row[2]
             display_topic = row[3]
@@ -308,8 +308,8 @@ def display(df):
                     st.markdown(f"**Summary**: {display_summary}")
                     st.link_button("Read Article", display_link)
                     st.caption(display_date.strftime('%B %d, %Y')) 
-    except Exception as e:
-        pass
+        except Exception as e:
+            pass
 
 
 
