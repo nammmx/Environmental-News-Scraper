@@ -286,27 +286,30 @@ st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diff
 st.cache_data(ttl=3600, show_spinner=False)
 def display(df):
     df = df.sort_values("date_created", ascending=False)
-    for index, row in df.iterrows():
-        display_date = row[1]
-        display_title = row[2]
-        display_topic = row[3]
-        display_summary = row[4]
-        display_link = row[5]
-        display_image = row[6]
-        display_topic_2 = row[7] 
-        if row[7] is None:
-            only_display_topic_2 = ""
-        else:
-            only_display_topic_2 = f""" | {row[7]}"""
-        with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
-            st.write("")
-            col1, col2 = st.columns([1,2.5])
-            with col1:
-                st.image(f"""{display_image}""", width=300, use_column_width=True)
-            with col2:
-                st.markdown(f"**Summary**: {display_summary}")
-                st.link_button("Read Article", display_link)
-                st.caption(display_date.strftime('%B %d, %Y')) 
+    try:
+        for index, row in df.iterrows():
+            display_date = row[1]
+            display_title = row[2]
+            display_topic = row[3]
+            display_summary = row[4]
+            display_link = row[5]
+            display_image = row[6]
+            display_topic_2 = row[7] 
+            if row[7] is None:
+                only_display_topic_2 = ""
+            else:
+                only_display_topic_2 = f""" | {row[7]}"""
+            with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
+                st.write("")
+                col1, col2 = st.columns([1,2.5])
+                with col1:
+                    st.image(f"""{display_image}""", width=300, use_column_width=True)
+                with col2:
+                    st.markdown(f"**Summary**: {display_summary}")
+                    st.link_button("Read Article", display_link)
+                    st.caption(display_date.strftime('%B %d, %Y')) 
+    except Exception as e:
+        pass
 
 
 
