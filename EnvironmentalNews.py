@@ -284,8 +284,12 @@ def display(df):
         display_summary = row[4]
         display_link = row[5]
         display_image = row[6]
-        display_topic_2 = row[7]
-        with st.expander(f"""{display_topic} {display_topic_2}\n\n{display_title}""", expanded=True):
+        display_topic_2 = row[7] 
+        if row[7] is None:
+            only_display_topic_2 = ""
+        else:
+            only_display_topic_2 = f""", row[7]"""
+        with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
             st.write("")
             col1, col2 = st.columns([1,2.5])
             with col1:
