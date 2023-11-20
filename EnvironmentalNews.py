@@ -164,6 +164,8 @@ div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
 }
 
+
+
 </style>
 ''', unsafe_allow_html=True)
 
@@ -271,6 +273,8 @@ with st.sidebar.form("my-form"):
    if st.form_submit_button('Reset', on_click=clear_text):
     st.session_state.keyword = ""
 
+st.sidebar.header("About")
+st.sidebar.write(f"""Articles: The Guardian\n\nImages: StabilityAI - Stable Diffusion XL 1.0\n\nSummary: HuggingFace BART Large CNN""")
 
 
 ####################################################################################################### display articles
