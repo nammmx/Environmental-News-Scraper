@@ -165,7 +165,7 @@ div[data-testid="stForm"] .st-dk {
 }
 
 div[data-testid="stSidebarUserContent"]  div[data-testid="stMarkdownContainer"] p {
-    line-height: 1.1;
+    line-height: 1.2;
     font-family: "Georgia";
     font-size: 14px;
 }
