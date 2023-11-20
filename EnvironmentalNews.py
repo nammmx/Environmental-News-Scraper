@@ -314,7 +314,7 @@ def display(df):
 
 
 ####################################################################################################### tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs(["All", "Air", "Climate Change", "Energy", "Environmental Law", "Greener Living", "Pollution", "Society", "Water", "Wildlife"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs(["All", "Air", "Climate Change", "Energy", "Environmental Law", "Fossil Fuel", "Greener Living", "Pollution", "Society", "Water", "Wildlife"])
 with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
@@ -336,22 +336,11 @@ with tab2:
     except Exception as e:
         pass
 
-with tab8:
+with tab3:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Society") | (df["topic_2"]=="Society")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab9:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Water") | (df["topic_2"]=="Water")]
+    df = df[(df["topic"]=="Climate Change") | (df["topic_2"]=="Climate Change")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
@@ -369,39 +358,6 @@ with tab4:
     except Exception as e:
         pass
 
-with tab7:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Polluiton") | (df["topic_2"]=="Pollution")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab10:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Wildlife") | (df["topic_2"]=="Wildlife")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab6:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Greener Living") | (df["topic_2"]=="Greener Living")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-        
 with tab5:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
@@ -413,14 +369,69 @@ with tab5:
     except Exception as e:
         pass
 
-with tab3:
+with tab6:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Climate Change") | (df["topic_2"]=="Climate Change")]
+    df = df[(df["topic"]=="Fossil Fuel") | (df["topic_2"]=="Fossil Fuel")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
     except Exception as e:
         pass
 
+with tab7:
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["topic"]=="Greener Living") | (df["topic_2"]=="Greener Living")]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
+    try:
+        display(df)
+    except Exception as e:
+        pass
+
+with tab8:
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["topic"]=="Polluiton") | (df["topic_2"]=="Pollution")]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
+    try:
+        display(df)
+    except Exception as e:
+        pass
+
+with tab9:
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["topic"]=="Society") | (df["topic_2"]=="Society")]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
+    try:
+        display(df)
+    except Exception as e:
+        pass
+
+with tab10:
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["topic"]=="Water") | (df["topic_2"]=="Water")]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
+    try:
+        display(df)
+    except Exception as e:
+        pass
+    
+
+with tab11:
+    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
+    df = full_df[date_filter]
+    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
+    df = df[(df["topic"]=="Wildlife") | (df["topic_2"]=="Wildlife")]
+    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
+    try:
+        display(df)
+    except Exception as e:
+        pass
