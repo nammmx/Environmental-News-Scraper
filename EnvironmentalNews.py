@@ -164,7 +164,7 @@ div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
 }
 
-div[data-testid="stSidebarUserContent"] > div[data-testid="stMarkdownContainer"] p {
+div[data-testid="stSidebarUserContent"]  div[data-testid="stMarkdownContainer"] p {
     line-height: 1.1;
     font-family: "Georgia";
     font-size: 14px;
