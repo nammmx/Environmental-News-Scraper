@@ -38,7 +38,7 @@ div.stLinkButton p {
 section[data-testid="stSidebar"] {
     top: 5rem;
     width: 250px !important; 
-    background-color:#B3BCB4;
+    background-color:#CDD4D0;
 }
 div[data-testid="collapsedControl"] {
     top:5.15rem;
