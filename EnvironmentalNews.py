@@ -168,6 +168,7 @@ div[data-testid="stSidebarUserContent"]  div[data-testid="stMarkdownContainer"] 
     line-height: 1.2;
     font-family: "Georgia";
     font-size: 14px;
+    margin-bottom: 0.5rem;
 }
 
 </style>
