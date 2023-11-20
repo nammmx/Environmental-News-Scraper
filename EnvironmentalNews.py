@@ -205,7 +205,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
         if conn is not None:
             conn.close()
 
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
 min_date = datetime.date(2023,11,20)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
@@ -284,6 +284,7 @@ def display(df):
         display_summary = row[4]
         display_link = row[5]
         display_image = row[6]
+        display_topic_2 = row[7]
         with st.expander(f"""{display_topic}\n\n{display_title}""", expanded=True):
             st.write("")
             col1, col2 = st.columns([1,2.5])
