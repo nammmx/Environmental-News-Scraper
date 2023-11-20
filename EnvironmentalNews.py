@@ -285,7 +285,7 @@ def display(df):
         display_link = row[5]
         display_image = row[6]
         display_topic_2 = row[7]
-        with st.expander(f"""{display_topic}\n\n{display_title}""", expanded=True):
+        with st.expander(f"""{display_topic} {display_topic_2}\n\n{display_title}""", expanded=True):
             st.write("")
             col1, col2 = st.columns([1,2.5])
             with col1:
