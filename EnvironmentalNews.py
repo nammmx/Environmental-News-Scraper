@@ -44,7 +44,7 @@ div[data-testid="collapsedControl"] {
     top:5.15rem;
 }
 div[data-testid="stExpander"] {
-    background-color: rgba(247, 250, 248, 0.275) ;
+    background-color: rgba(247, 250, 248, 0.45) ;
     border: 0px solid black;
 }
 .st-emotion-cache-yf5hy5 p:nth-child(1) {
@@ -107,7 +107,7 @@ div[data-testid="stMarkdownContainer"] h2 {
 }
 
 .appview-container {
-    background: radial-gradient(rgba(23, 48, 28, 0.5), transparent);
+    background: radial-gradient(rgba(23, 48, 28, 0.7), transparent);
 }
 div[data-testid="stExpander"] > details {
     bordder-radius: 0;
@@ -205,7 +205,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
         if conn is not None:
             conn.close()
 
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image FROM news;""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
 min_date = datetime.date(2023,11,10)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
@@ -283,11 +283,16 @@ def display(df):
         display_topic = row[3]
         display_summary = row[4]
         display_link = row[5]
+        display_image = row[6]
         with st.expander(f"""{display_topic}\n\n{display_title}""", expanded=True):
             st.write("")
-            st.markdown(f"**Summary**: {display_summary}")
-            st.link_button("Read Article", display_link)
-            st.caption(display_date.strftime('%B %d, %Y')) 
+            col1, col2 = st.columns([1,2.5])
+            with col1:
+                st.image(f"""{display_image}""", width=300, use_column_width=True)
+            with col2:
+                st.markdown(f"**Summary**: {display_summary}")
+                st.link_button("Read Article", display_link)
+                st.caption(display_date.strftime('%B %d, %Y')) 
 
 
 
