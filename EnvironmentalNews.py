@@ -328,7 +328,6 @@ def display(df):
                     st.caption(display_date.strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {display_summary}")
                     st.link_button("Read Article", display_link) 
-                    st.caption("")
             st.divider()
         except Exception as e:
             pass
