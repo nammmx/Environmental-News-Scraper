@@ -8,8 +8,8 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css?family=Roboto Condensed'); 
-@import url('https://fonts.googleapis.com/css?family=Roboto Condensed'); 
+@import url('https://fonts.googleapis.com/css?family=Heebo'); 
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,600,800,900');  
 
 body * { 
     -webkit-font-smoothing: subpixel-antialiased !important; 
@@ -54,11 +54,12 @@ div[data-testid="stExpander"] {
     font-family: "Georgia";
 }
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
-    font-size: 1.75rem;
-    font-weight: 400;
-    font-family: 'Roboto Condensed';
-    line-height:1.5;
-    letter-spacing: 0.3px;
+    font-size: 2.25rem;
+    font-weight: 800;
+    font-family: 'Heebo';
+    line-height:1.15;
+    letter-spacing: 0.25px;
+    margin: 10px 0 0 0;
 }
 header[data-testid="stHeader"] {
     background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
@@ -95,11 +96,12 @@ div[data-testid="stExpanderDetails"] p {
     font-family:'Georgia';
 }
 div[data-testid="StyledLinkIconContainer"] {
-    font-weight: 600;
-    font-family:'Roboto Condensed';
+    font-weight: 900;
+    font-family:'Heebo';
+    font-size: 2.5rem;
 }
 div[data-testid="stMarkdownContainer"] h2 {
-    font-family:'Roboto Condensed';
+    font-family:'Heebo';
     font-weight: 600;
 }
 
