@@ -16,6 +16,9 @@ body * {
     text-rendering:optimizeLegibility !important;
 }
 
+body hr {
+    border-bottom: 1.5px solid rgba(23, 48, 28, 0.5); 
+}
 
 div.stButton > button:first-child {
     width: 200px;
@@ -47,6 +50,8 @@ section[data-testid="stSidebar"] {
     top: 5rem;
     width: 200px !important; 
     background-color:#CDD4D0;
+    background: #F3EEEA;
+    border-right: 1.5px solid rgba(23, 48, 28, 0.5);
 }
 div[data-testid="collapsedControl"] {
     top:5.15rem;
@@ -122,13 +127,14 @@ div[data-testid="stMarkdownContainer"] h2 {
 
 .appview-container {
     background: radial-gradient(rgba(23, 48, 28, 0.7), transparent);
+    background: #F3EEEA;
 }
 div[data-testid="stExpander"] > details {
     bordder-radius: 0;
     border-color: rgba(255, 255, 255, 0.05);
 }
 div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 div[data-testid="stExpander"] > details > summary:hover {
@@ -324,6 +330,7 @@ def display(df):
                     st.caption("")
         except Exception as e:
             pass
+    st.divider()
 
 
 
