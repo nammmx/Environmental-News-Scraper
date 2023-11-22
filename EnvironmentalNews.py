@@ -21,6 +21,7 @@ body * {
 }
 .stButton {
     width:150px !important;
+    margin: 0 auto;
 }
 
 div.stButton > button:first-child {
