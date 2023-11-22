@@ -185,7 +185,7 @@ div[data-testid="stForm"] .st-dk {
 }
 
 div[data-testid="stCaptionContainer"] {
-    margin-bottom: -1.5rem;
+    margin-bottom: -1.75rem;
 }
 
 </style>
