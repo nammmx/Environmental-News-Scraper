@@ -18,7 +18,7 @@ body * {
 
 
 div.stButton > button:first-child {
-
+    width: 200px;
     background-color: rgba(23, 48, 28, 0.95) ;
     color: #f5e1d5; 
 }
