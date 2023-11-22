@@ -314,9 +314,9 @@ def display(df):
                 with col1:
                     st.image(f"""{display_image}""", width=300, use_column_width=True)
                 with col2:
+                    st.caption(display_date.strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {display_summary}")
-                    st.link_button("Read Article", display_link)
-                    st.caption(display_date.strftime('%B %d, %Y')) 
+                    st.link_button("Read Article", display_link) 
         except Exception as e:
             pass
 
