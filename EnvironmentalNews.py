@@ -17,7 +17,7 @@ body * {
 }
 
 div[data-testid="stSelectbox"] {
-    width:150px;
+    width:150px !important;
 }
 
 div.stButton > button:first-child {
