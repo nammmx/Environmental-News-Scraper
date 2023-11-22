@@ -184,6 +184,10 @@ div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
 }
 
+div[data-testid="stCaptionContainer"] {
+    margin-bottom: -1.5rem;
+}
+
 </style>
 ''', unsafe_allow_html=True)
 
