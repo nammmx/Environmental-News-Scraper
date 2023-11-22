@@ -19,6 +19,9 @@ body * {
 .st-emotion-cache-wxla7p {
     width:150px !important;
 }
+.stButton {
+    width:150px !important;
+}
 
 div.stButton > button:first-child {
     width: 150px;
