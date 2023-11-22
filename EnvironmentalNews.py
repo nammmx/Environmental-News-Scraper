@@ -25,6 +25,7 @@ div.stButton p {
     font-family: "Heebo";
     font-size: 15px;
     letter-spacing: 0.25px;
+    padding-top: 1px;
 }
 
 div.stLinkButton > a:first-child {
