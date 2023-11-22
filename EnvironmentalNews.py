@@ -31,14 +31,14 @@ div.stButton p {
 }
 
 div.stLinkButton > a:first-child {
-    width: 105px;
+    width: 125px;
     background-color: rgba(23, 48, 28, 0.95) ;
     font-family: "Heebo" !important;
     letter-spacing: 0.25px;
     
 }
 div.stLinkButton p {
-    font-size: 13px;
+    font-size: 15px;
     color: #f5e1d5;
     font-family: "Heebo" !important;
     font-weight: 600;
