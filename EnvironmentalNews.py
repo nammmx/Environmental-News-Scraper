@@ -134,7 +134,6 @@ div[data-baseweb="select"] {
     font-weight:600;
     font-size: 15px;
     letter-spacing: 0.25px;
-    padding-top: 2px;
 }
 
 ul[data-testid="stVirtualDropdown"] li {
@@ -147,8 +146,9 @@ ul[data-testid="stVirtualDropdown"] li:hover {
 }
 
 div[data-baseweb="select"] > div:first-child > div > div:first-child {
-    padding-left: 45px;
+    padding-left: 48px;
     color: #f5e1d5;
+    padding-top: 1px;
 }
 
 div[data-baseweb="select"] div {
