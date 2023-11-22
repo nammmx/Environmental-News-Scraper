@@ -38,7 +38,7 @@ div.stLinkButton > a:first-child {
     background-color: rgba(23, 48, 28, 0.95) ;
 
 div[data-testid="stButton"] {
-    width: 150px;
+    width:150px !important;
 }
 
 }
