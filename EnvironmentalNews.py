@@ -303,7 +303,7 @@ def display(df):
 
 
 ####################################################################################################### tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["All", "Air", "Climate Change", "Energy", "Environmental Law", "Fossil Fuel", "Greener Living", "Natural Disaster", "Pollution", "Society", "Water", "Wildlife & Conservation"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["All", "Air", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Greener Living", "Pollution", "Society", "Water", "Wildlife & Conservation"])
 with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
@@ -340,7 +340,7 @@ with tab4:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Energy") | (df["topic_2"]=="Energy")]
+    df = df[(df["topic"]=="Crisis") | (df["topic_2"]=="Crisis")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
@@ -351,7 +351,7 @@ with tab5:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Environmental Law") | (df["topic_2"]=="Environmental Law")]
+    df = df[(df["topic"]=="Energy") | (df["topic_2"]=="Energy")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
@@ -362,7 +362,7 @@ with tab6:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Fossil Fuel") | (df["topic_2"]=="Fossil Fuel")]
+    df = df[(df["topic"]=="Environmental Law") | (df["topic_2"]=="Environmental Law")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
@@ -373,7 +373,7 @@ with tab7:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Greener Living") | (df["topic_2"]=="Greener Living")]
+    df = df[(df["topic"]=="Fossil Fuel") | (df["topic_2"]=="Fossil Fuel")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
@@ -384,7 +384,7 @@ with tab8:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Natural Disaster") | (df["topic_2"]=="Natural Disaster")]
+    df = df[(df["topic"]=="Greener Living") | (df["topic_2"]=="Greener Living")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
