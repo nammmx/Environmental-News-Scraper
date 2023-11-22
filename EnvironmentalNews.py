@@ -134,7 +134,7 @@ div[data-baseweb="select"] {
     font-weight:600;
     font-size: 15px;
     letter-spacing: 0.25px;
-    padding-top: 1px;
+    padding-top: 2px;
 }
 
 ul[data-testid="stVirtualDropdown"] li {
