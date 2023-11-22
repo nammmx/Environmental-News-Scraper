@@ -33,8 +33,9 @@ div.stButton p {
 div.stLinkButton > a:first-child {
     width: 105px;
     background-color: rgba(23, 48, 28, 0.95) ;
-    font-family: "Heebo";
-
+    font-family: "Heebo" !important;
+    letter-spacing: 0.25px;
+    font-weight: 600;
 
 }
 div.stLinkButton p {
