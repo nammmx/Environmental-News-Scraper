@@ -41,7 +41,7 @@ div.stLinkButton p {
 }
 section[data-testid="stSidebar"] {
     top: 5rem;
-    width: 250px !important; 
+    width: 200px !important; 
     background-color:#CDD4D0;
 }
 div[data-testid="collapsedControl"] {
