@@ -50,7 +50,7 @@ section[data-testid="stSidebar"] {
     top: 5rem;
     width: 200px !important; 
     background-color:#CDD4D0;
-    background: #F3EEEA;
+    background: #F6F4F0;
     border-right: 1.5px solid rgba(23, 48, 28, 0.5);
 }
 div[data-testid="collapsedControl"] {
@@ -128,7 +128,7 @@ div[data-testid="stMarkdownContainer"] h2 {
 
 .appview-container {
     background: radial-gradient(rgba(23, 48, 28, 0.7), transparent);
-    background: #F3EEEA;
+    background: #F6F4F0;
 }
 div[data-testid="stExpander"] > details {
     bordder-radius: 0;
