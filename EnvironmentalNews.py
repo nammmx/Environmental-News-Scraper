@@ -161,7 +161,7 @@ div[data-baseweb="select"] div {
     color: #f5e1d5;
     border: 0px;
     margin: 0;
-    padding-right: 3px;
+    padding-right: 2px;
 
 }
 div[data-baseweb="popover"] .st-dk {
