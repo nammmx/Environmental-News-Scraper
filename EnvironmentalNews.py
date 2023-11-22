@@ -22,8 +22,9 @@ div.stButton > button:first-child {
     color: #f5e1d5; 
 }
 div.stButton p {
-    font-family: "Georgia";
+    font-family: "Heebo";
     font-size: 15px;
+    letter-spacing: 0.25px;
 }
 
 div.stLinkButton > a:first-child {
