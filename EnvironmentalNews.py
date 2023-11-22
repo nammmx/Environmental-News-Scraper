@@ -16,7 +16,7 @@ body * {
     text-rendering:optimizeLegibility !important;
 }
 
-div[data-testid="stSelectbox"] {
+.st-emotion-cache-wxla7p {
     width:150px !important;
 }
 
