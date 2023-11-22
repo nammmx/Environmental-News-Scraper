@@ -160,8 +160,7 @@ div[data-baseweb="select"] div {
     background-color: rgba(23, 48, 28, 0.95);
     color: #f5e1d5;
     border: 0px;
-    margin: 0;
-    padding-right: 3px;
+
 }
 div[data-baseweb="popover"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
