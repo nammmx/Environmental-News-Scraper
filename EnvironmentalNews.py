@@ -41,6 +41,10 @@ div[data-testid="stButton"] {
     width:150px !important;
 }
 
+div[data-testid="element-container""] {
+    width:150px !important;
+}
+
 }
 div.stLinkButton p {
     font-size: 13px;
