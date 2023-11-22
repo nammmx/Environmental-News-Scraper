@@ -100,10 +100,12 @@ div[data-testid="StyledLinkIconContainer"] {
     font-weight: 900;
     font-family:'Heebo';
     font-size: 2.5rem;
+    letter-spacing: 0.25px;
 }
 div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Heebo';
     font-weight: 600;
+    letter-spacing: 0.25px;
 }
 
 .st-emotion-cache-z5fcl4 {
