@@ -41,7 +41,7 @@ div.stLinkButton > a:first-child {
 div.stLinkButton p {
     font-size: 13px;
     color: #f5e1d5;
-    font-family: "Heebo";
+    font-family: "Heebo" !important;
 }
 section[data-testid="stSidebar"] {
     top: 5rem;
