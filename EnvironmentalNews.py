@@ -190,7 +190,7 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
 }
 
 div[data-testid="stSelectbox"] {
-    width: 150 !important;
+    width: 150px !important;
 }
 
 div[data-baseweb="select"] svg {
