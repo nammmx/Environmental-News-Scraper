@@ -39,7 +39,7 @@ div.stLinkButton > a:first-child {
 div.stLinkButton p {
     font-size: 13px;
     color: #f5e1d5;
-    font-family: "Georgia";
+    font-family: "Heebo";
 }
 section[data-testid="stSidebar"] {
     top: 5rem;
@@ -142,7 +142,7 @@ div[data-baseweb="select"] {
 
 ul[data-testid="stVirtualDropdown"] li {
     text-align: center;
-    font-family: "Georgia";
+    font-family: "Heebo";
 }
 ul[data-testid="stVirtualDropdown"] li:hover {
     color: rgba(23, 48, 28, 0.95);
