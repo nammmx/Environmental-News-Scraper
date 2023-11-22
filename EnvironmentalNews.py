@@ -290,9 +290,11 @@ if st.sidebar.button("All Time", on_click=all_dates):
 
 if st.session_state.show_date == "All":
     result_display = "All Time"
+elif st.session_state.show_date == date_list_filter[len(date_list_filter)-1]:
+    result_display = "Today"
 else:
     result_display = datetime.datetime.strptime(st.session_state.show_date, "%Y-%m-%d").strftime('%b. %d, %Y')
-st.header(f"News from {result_display}")
+st.header(f"{result_display}")
 
 ####################################################################################################### keyword filter
 st.sidebar.header("Keyword Filter")
