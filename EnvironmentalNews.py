@@ -16,8 +16,12 @@ body * {
     text-rendering:optimizeLegibility !important;
 }
 
+div[data-testid="stSelectbox"] {
+    width:150px;
+}
+
 div.stButton > button:first-child {
-    width: 200px;
+    width: 150px;
     background-color: rgba(23, 48, 28, 0.95) ;
     color: #f5e1d5; 
 }
@@ -146,9 +150,10 @@ ul[data-testid="stVirtualDropdown"] li:hover {
 }
 
 div[data-baseweb="select"] > div:first-child > div > div:first-child {
-    padding-left: 48px;
+    padding-left: 20px;
     color: #f5e1d5;
     padding-top: 1px;
+    
 }
 
 div[data-baseweb="select"] div {
@@ -170,6 +175,8 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
 
 div[data-baseweb="select"] svg {
     color: #f5e1d5;
+    height: 20px;
+    width: 20px;
 }
 
 div[data-testid="stForm"] .st-dk {
