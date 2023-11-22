@@ -92,6 +92,11 @@ div[data-testid="stAppViewContainer"] > section:nth-child(2) {
 .st-dn {
     background-color: transparent;
 }
+
+div[data-testid="stTextInput"] {
+    width:150px;
+}
+
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
 }
