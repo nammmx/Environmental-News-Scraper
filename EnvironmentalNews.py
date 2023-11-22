@@ -8,7 +8,8 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css?family=Yeseva One'); 
+@import url('https://fonts.googleapis.com/css?family=Roboto Condensed'); 
+@import url('https://fonts.googleapis.com/css?family=Roboto Condensed'); 
 
 body * { 
     -webkit-font-smoothing: subpixel-antialiased !important; 
@@ -55,7 +56,7 @@ div[data-testid="stExpander"] {
 .st-emotion-cache-yf5hy5 p:nth-child(2) {
     font-size: 1.75rem;
     font-weight: 400;
-    font-family: 'Yeseva One';
+    font-family: 'Roboto Condensed';
     line-height:1.5;
     letter-spacing: 0.3px;
 }
@@ -95,10 +96,10 @@ div[data-testid="stExpanderDetails"] p {
 }
 div[data-testid="StyledLinkIconContainer"] {
     font-weight: 600;
-    font-family:'Yeseva One';
+    font-family:'Roboto Condensed';
 }
 div[data-testid="stMarkdownContainer"] h2 {
-    font-family:'Yeseva One';
+    font-family:'Roboto Condensed';
     font-weight: 600;
 }
 
