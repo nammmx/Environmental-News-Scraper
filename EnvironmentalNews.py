@@ -130,7 +130,11 @@ div[data-testid="stExpander"] > details > summary:hover {
 }
  
 div[data-baseweb="select"] {
-    font-family: "Georgia";
+    font-family: "Heebo";
+    font-weight:600;
+    font-size: 15px;
+    letter-spacing: 0.25px;
+    padding-top: 1px;
 }
 
 ul[data-testid="stVirtualDropdown"] li {
