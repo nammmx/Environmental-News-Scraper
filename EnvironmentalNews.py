@@ -35,13 +35,13 @@ div.stLinkButton > a:first-child {
     background-color: rgba(23, 48, 28, 0.95) ;
     font-family: "Heebo" !important;
     letter-spacing: 0.25px;
-    font-weight: 600;
-
+    
 }
 div.stLinkButton p {
     font-size: 13px;
     color: #f5e1d5;
     font-family: "Heebo" !important;
+    font-weight: 600;
 }
 section[data-testid="stSidebar"] {
     top: 5rem;
