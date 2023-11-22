@@ -37,6 +37,10 @@ div.stLinkButton > a:first-child {
     width: 105px;
     background-color: rgba(23, 48, 28, 0.95) ;
 
+div[data-testid="stButton"] {
+    width: 150px;
+}
+
 }
 div.stLinkButton p {
     font-size: 13px;
