@@ -175,8 +175,8 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
 
 div[data-baseweb="select"] svg {
     color: #f5e1d5;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
 }
 
 div[data-testid="stForm"] .st-dk {
