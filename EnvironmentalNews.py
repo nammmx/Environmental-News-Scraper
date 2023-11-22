@@ -173,7 +173,11 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
     color: rgba(23, 48, 28, 0.95) !important;
 }
 
-
+div[data-baseweb="select"] svg {
+    color: #f5e1d5;
+    height: 15px;
+    width: 15px;
+}
 
 div[data-testid="stForm"] .st-dk {
     background-color: #DFE3E0;
