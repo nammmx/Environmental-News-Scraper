@@ -33,6 +33,7 @@ div.stButton p {
 div.stLinkButton > a:first-child {
     width: 105px;
     background-color: rgba(23, 48, 28, 0.95) ;
+    font-family: "Heebo";
 
 
 }
