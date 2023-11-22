@@ -58,6 +58,7 @@ div[data-testid="collapsedControl"] {
 }
 div[data-testid="stExpander"] {
     background-color: rgba(247, 250, 248, 0.45) ;
+    background: transparent;
     border: 0px solid black;
 }
 .st-emotion-cache-yf5hy5 p:nth-child(1) {
