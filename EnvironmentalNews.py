@@ -104,7 +104,7 @@ div[data-testid="StyledLinkIconContainer"] {
 }
 div[data-testid="stMarkdownContainer"] h2 {
     font-family:'Heebo';
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.25px;
 }
 
