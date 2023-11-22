@@ -23,7 +23,7 @@ body hr {
 div.stButton > button:first-child {
     width: 200px;
     background-color: rgba(23, 48, 28, 0.95) ;
-    color: #f5e1d5; 
+    color: #F6F4F0; 
 }
 div.stButton p {
     font-family: "Heebo";
@@ -42,7 +42,7 @@ div.stLinkButton > a:first-child {
 }
 div.stLinkButton p {
     font-size: 15px;
-    color: #f5e1d5;
+    color: #F6F4F0;
     font-family: "Heebo" !important;
     font-weight: 600;
 }
@@ -160,21 +160,21 @@ ul[data-testid="stVirtualDropdown"] li:hover {
 
 div[data-baseweb="select"] > div:first-child > div > div:first-child {
     padding-left: 48px;
-    color: #f5e1d5;
+    color: #F6F4F0;
     padding-top: 1px;
     
 }
 
 div[data-baseweb="select"] div {
     background-color: rgba(23, 48, 28, 0.95);
-    color: #f5e1d5;
+    color: #F6F4F0;
     border: 0px;
 }
 div[data-baseweb="popover"] .st-dk {
     background-color: rgba(23, 48, 28, 0.95);
 }
 div[data-baseweb="popover"] li {
-    color: #f5e1d5;
+    color: #F6F4F0;
     background-color: rgba(23, 48, 28, 0.95);
 }
 div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
@@ -184,7 +184,7 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
 
 
 div[data-baseweb="select"] svg {
-    color: #f5e1d5;
+    color: #F6F4F0;
 }
 
 div[data-testid="stForm"] .st-dk {
