@@ -16,16 +16,9 @@ body * {
     text-rendering:optimizeLegibility !important;
 }
 
-.st-emotion-cache-wxla7p {
-    width:150px !important;
-}
-.stButton {
-    width:150px !important;
-    margin: 0 auto;
-}
 
 div.stButton > button:first-child {
-    width: 150px;
+
     background-color: rgba(23, 48, 28, 0.95) ;
     color: #f5e1d5; 
 }
@@ -41,9 +34,6 @@ div.stLinkButton > a:first-child {
     width: 105px;
     background-color: rgba(23, 48, 28, 0.95) ;
 
-div[data-testid="stButton"] {
-    width:150px !important;
-}
 
 }
 div.stLinkButton p {
@@ -101,9 +91,6 @@ div[data-testid="stAppViewContainer"] > section:nth-child(2) {
     background-color: transparent;
 }
 
-div[data-testid="stTextInput"] {
-    width:150px;
-}
 
 div[data-testid="textInputRootElement"] {
     border: 1px solid rgba(23, 48, 28, 0.95);
@@ -189,9 +176,6 @@ div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
     color: rgba(23, 48, 28, 0.95) !important;
 }
 
-div[data-testid="stSelectbox"] {
-    width: 150px !important;
-}
 
 div[data-baseweb="select"] svg {
     color: #f5e1d5;
