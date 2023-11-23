@@ -20,6 +20,9 @@ body hr {
     border-bottom: 1.5px solid rgba(23, 48, 28, 0.5); 
 }
 
+div[data-testid="stToolbarActions"] {
+    visibility:hidden;
+}
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 
