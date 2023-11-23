@@ -348,7 +348,7 @@ def display(df):
 
 
 ####################################################################################################### tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["All", "Air", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Greener Living", "Pollution", "Society", "Water", "Wildlife & Conservation"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Greener Living", "Pollution", "Society", "Water", "Wildlife & Conservation"])
 with tab1:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
@@ -363,7 +363,7 @@ with tab2:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
     df = full_df[date_filter]
     df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Air") | (df["topic_2"]=="Air")]
+    df = df[(df["topic"]=="Business & Innovation") | (df["topic_2"]=="Business & Innovation")]
     df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
     try:
         display(df)
