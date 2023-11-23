@@ -97,7 +97,7 @@ div[data-testid="stAppViewContainer"] > section:nth-child(2) {
     padding: 4.5rem 0.5rem 0rem 1rem;
 }
 .appview-container > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
-    padding: 1rem 1.5rem1.5rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
 }
 .st-dn {
     background-color: transparent;
