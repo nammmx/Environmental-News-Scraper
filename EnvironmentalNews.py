@@ -20,6 +20,9 @@ body hr {
     border-bottom: 1.5px solid rgba(23, 48, 28, 0.5); 
 }
 
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
 div[data-baseweb="tab-panel"] {
     padding-top: 2rem;
 }
