@@ -51,7 +51,7 @@ div.stLinkButton > a:first-child {
     
 }
 div.stLinkButton p {
-    font-size: 15px;
+    font-size: 15px !important;
     color: #F6F4F0;
     font-family: "Heebo" !important;
     font-weight: 600;
