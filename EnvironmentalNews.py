@@ -79,7 +79,7 @@ div[data-testid="stExpander"] {
     margin: 10px 0 0 0;
 }
 header[data-testid="stHeader"] {
-    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1699990104/environmentalnewsscraper/l9uf62gwcqaa5edfoe39.png');
+    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1700734920/environmentalnewsscraper/gaymiakzqtkjyafo5ov3.png');
     background-size: contain ;
     background-repeat: no-repeat;
     background-color:rgb(23, 48, 28);
@@ -94,10 +94,10 @@ div[data-testid="stAppViewContainer"] > section:nth-child(2) {
 }
 
 .appview-container > section:nth-child(2) > div:nth-child(1) {
-    padding: 5rem 0.5rem 0rem 1rem;
+    padding: 4.5rem 0.5rem 0rem 1rem;
 }
 .appview-container > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
-    padding: 1.5rem 1.5rem;
+    padding: 1rem 1.5rem1.5rem 1.5rem;
 }
 .st-dn {
     background-color: transparent;
