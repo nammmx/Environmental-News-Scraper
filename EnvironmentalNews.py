@@ -119,6 +119,7 @@ div[data-testid="stForm"] {
 }
 div[data-testid="stExpanderDetails"] p {
     font-family:'Georgia';
+    font-size: 18px;
 }
 div[data-testid="StyledLinkIconContainer"] {
     font-weight: 900;
