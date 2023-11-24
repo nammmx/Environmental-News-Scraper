@@ -332,7 +332,7 @@ def display(df):
                 st.write("")
                 col1, col2 = st.columns([1,2.25])
                 with col1:
-                    if display_image is not none:
+                    if display_image is not None:
                         st.image(f"""{display_image}""", width=300, use_column_width=True)
                 with col2:
                     st.caption(display_date.strftime('%B %d, %Y'))
