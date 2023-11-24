@@ -243,7 +243,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
         if conn is not None:
             conn.close()
 
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE article != '';""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
+full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE article != '' AND image != '';""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
 min_date = datetime.date(2023,11,18)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
@@ -330,18 +330,13 @@ def display(df):
                 only_display_topic_2 = f""" | {row[7]}"""
             with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
                 st.write("")
-                if display_image is None:   
+                col1, col2 = st.columns([1,2.25])
+                with col1:
+                    st.image(f"""{display_image}""", width=300, use_column_width=True)
+                with col2:
                     st.caption(display_date.strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {display_summary}")
                     st.link_button("Read Article", display_link) 
-                else:
-                    col1, col2 = st.columns([1,2.25])
-                    with col1:
-                        st.image(f"""{display_image}""", width=300, use_column_width=True)
-                    with col2:
-                        st.caption(display_date.strftime('%B %d, %Y'))
-                        st.markdown(f"**Summary**: {display_summary}")
-                        st.link_button("Read Article", display_link) 
             st.divider()
         except Exception as e:
             pass
