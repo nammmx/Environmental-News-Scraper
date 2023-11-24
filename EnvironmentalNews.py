@@ -330,14 +330,18 @@ def display(df):
                 only_display_topic_2 = f""" | {row[7]}"""
             with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
                 st.write("")
-                col1, col2 = st.columns([1,2.25])
-                with col1:
-                    if display_image is not None:
-                        st.image(f"""{display_image}""", width=300, use_column_width=True)
-                with col2:
+                if display_image is None:   
                     st.caption(display_date.strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {display_summary}")
                     st.link_button("Read Article", display_link) 
+                else:
+                    col1, col2 = st.columns([1,2.25])
+                    with col1:
+                        st.image(f"""{display_image}""", width=300, use_column_width=True)
+                    with col2:
+                        st.caption(display_date.strftime('%B %d, %Y'))
+                        st.markdown(f"**Summary**: {display_summary}")
+                        st.link_button("Read Article", display_link) 
             st.divider()
         except Exception as e:
             pass
