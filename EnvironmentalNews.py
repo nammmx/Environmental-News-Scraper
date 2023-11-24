@@ -322,7 +322,10 @@ def display(df):
             display_topic = row[3]
             display_summary = row[4]
             display_link = row[5]
-            display_image = row[6]
+            if row[6] is none:
+                display_image = ""
+            else:
+                display_image = row[6]
             display_topic_2 = row[7] 
             if row[7] is None:
                 only_display_topic_2 = ""
