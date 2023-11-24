@@ -357,7 +357,7 @@ with tab1:
     try:
         display(df)
     except Exception as e:
-        pass
+        st.write(e)
     
 with tab2:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
