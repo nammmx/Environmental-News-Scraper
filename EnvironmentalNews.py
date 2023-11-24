@@ -322,10 +322,7 @@ def display(df):
             display_topic = row[3]
             display_summary = row[4]
             display_link = row[5]
-            if row[6] is none:
-                display_image = " "
-            else:
-                display_image = row[6]
+            display_image = row[6]
             display_topic_2 = row[7] 
             if row[7] is None:
                 only_display_topic_2 = ""
@@ -335,7 +332,8 @@ def display(df):
                 st.write("")
                 col1, col2 = st.columns([1,2.25])
                 with col1:
-                    st.image(f"""{display_image}""", width=300, use_column_width=True)
+                    if display_image is not none:
+                        st.image(f"""{display_image}""", width=300, use_column_width=True)
                 with col2:
                     st.caption(display_date.strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {display_summary}")
@@ -357,7 +355,7 @@ with tab1:
     try:
         display(df)
     except Exception as e:
-        st.write(e)
+        pass
     
 with tab2:
     date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
