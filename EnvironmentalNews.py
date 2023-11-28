@@ -23,14 +23,14 @@ body hr {
 div[data-testid="stToolbarActions"] {
     visibility:hidden;
 }
-/*
+
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 
 div[data-baseweb="tab-panel"] {
     padding-top: 2rem;
 }
-*/
+
 div.stButton > button:first-child {
     width: 200px;
     background-color: rgba(23, 48, 28, 0.95) ;
