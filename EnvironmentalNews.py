@@ -250,7 +250,7 @@ def execute_query(query, hostname, database, username, port_id, pwd, result = No
 
 full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE article != '' AND image != '';""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
 ####################################################################################################### date filters
-min_date = datetime.date(2024,01,19)
+min_date = datetime.date(2024,1,19)
 max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
 
 dates = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
