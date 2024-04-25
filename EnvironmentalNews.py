@@ -228,7 +228,7 @@ full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, 
 st.write("Total articles fetched:", full_df.shape[0])  # Debugging statement
 
 # Setup date filters for sidebar
-min_date = datetime.date(2022, 1, 1)  # Adjust to an appropriate minimum date based on your data
+min_date = datetime.date(2024, 4, 20)  # Adjust to an appropriate minimum date based on your data
 max_date = datetime.date.today()
 
 date_list = pd.date_range(min_date, max_date, freq='d').tolist()
