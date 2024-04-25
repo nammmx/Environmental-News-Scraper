@@ -290,6 +290,8 @@ st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.write("")
+st.sidebar.write("")
+st.sidebar.write("")
 st.sidebar.markdown(
     '<div style="text-align: center;">'
     '<a href="https://github.com/nammmx/Environmental-News-Scraper" '
