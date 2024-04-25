@@ -315,7 +315,6 @@ topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", 
 
 
 selected_dates = st.session_state.get('selected_dates', [])
-
 if not selected_dates:
     result_display = "Today"
 elif selected_dates == [max_date]:
@@ -323,9 +322,9 @@ elif selected_dates == [max_date]:
 elif len(selected_dates) == len(date_list_filter):
     result_display = "All Time"
 else:
-    result_display = format_date(selected_dates[])
-
+    result_display = format_date(st.session_state['date_select'])
 st.header(f"News from {result_display}")
+
 
 
 
