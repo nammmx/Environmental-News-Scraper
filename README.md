@@ -1,3 +1,4 @@
+![Banner](https://github.com/nammmx/nammmx.github.io/blob/main/pictures/environmental-scraper.jpg)
 # Environmental News Scraper and Summarizer
 
 This project automates the extraction, summarization, and categorization of environmental news articles from "The Guardian", generating associated images and storing all related data in a PostgreSQL database. It is designed to provide researchers, journalists, and enthusiasts with an automated, comprehensive daily overview of environmental news.
