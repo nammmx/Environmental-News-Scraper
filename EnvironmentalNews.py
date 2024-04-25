@@ -229,7 +229,7 @@ full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, 
                            FROM news WHERE article != '' AND image != '';""")
 
 # Setup date filters for sidebar
-min_date = datetime.date(2022, 1, 1)  # Adjust as necessary
+min_date = datetime.date(2024, 4, 25)  # Adjust as necessary
 max_date = datetime.date.today()
 
 date_list = pd.date_range(min_date, max_date, freq='d').tolist()
