@@ -233,16 +233,24 @@ date_list = pd.date_range(min_date, max_date, freq='d').tolist()
 date_list_filter = [date.strftime("%Y-%m-%d") for date in date_list]
 
 st.sidebar.header("Date Filter")
-option = st.sidebar.selectbox("Select Date", options=date_list_filter, index=0, key="option")
+
+# Convert string date to datetime.date object before formatting
+def format_date(date_str):
+    return datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime('%b. %d, %Y')
+
+option = st.sidebar.selectbox(
+    "Select Date",
+    options=date_list_filter,
+    index=0,
+    format_func=format_date
+)
 
 if not 'selected_dates' in st.session_state:
     st.session_state.selected_dates = [date_list_filter[-1]]
 
-# Define functions for date filters
 def update_date(option):
     st.session_state.selected_dates = [option]
 
-option = st.sidebar.selectbox("Select Date", options=date_list_filter, index=0, on_change=update_date, format_func=lambda x: x.strftime('%b. %d, %Y'))
 st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
 st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 
