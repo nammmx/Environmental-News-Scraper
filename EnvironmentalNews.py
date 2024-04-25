@@ -9,163 +9,206 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Heebo'); 
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,600,800,900');  
 
-body {
-    font-family: 'Nunito', sans-serif;
+body * { 
+    -webkit-font-smoothing: subpixel-antialiased !important; 
+    text-rendering:optimizeLegibility !important;
 }
 
-h1 {
-    font-size: 3rem;
-    font-weight: 800;
+body hr {
+    border-bottom: 1.5px solid rgba(23, 48, 28, 0.5); 
 }
 
-h2, h3, h4, h5, h6 {
-    font-weight: 700;
+div[data-testid="stToolbarActions"] {
+    visibility:hidden;
 }
 
-/* Sidebar styles */
+#MainMenu {visibility: hidden;}
+
+footer {visibility: hidden;}
+
+div[data-baseweb="tab-panel"] {
+    padding-top: 2rem;
+}
+
+div.stButton > button:first-child {
+    width: 200px;
+    background-color: rgba(23, 48, 28, 0.95) ;
+    color: #F6F4F0; 
+}
+div.stButton p {
+    font-family: "Heebo";
+    font-weight:600;
+    font-size: 15px;
+    letter-spacing: 0.25px;
+    padding-top: 1px;
+}
+
+div.stLinkButton > a:first-child {
+    width: 125px;
+    background-color: rgba(23, 48, 28, 0.95) ;
+    font-family: "Heebo" !important;
+    letter-spacing: 0.25px;
+    
+}
+div.stLinkButton p {
+    font-size: 15px !important;
+    color: #F6F4F0;
+    font-family: "Heebo" !important;
+    font-weight: 600;
+}
 section[data-testid="stSidebar"] {
-    background-color: #fff;
-    border-right: 2px solid #e1e4e8;
-    padding: 2rem;
+    top: 5rem;
+    width: 200px !important; 
+    background-color:#CDD4D0;
+    background: #F6F4F0;
+    border-right: 1.5px solid rgba(23, 48, 28, 0.5);
 }
-
-/* Button styles */
-button {
-    border: 2px solid transparent;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: all 300ms;
-    color: #fff;
-    background-color: #1E88E5;
-    font-weight: 700;
+div[data-testid="collapsedControl"] {
+    top:5.15rem;
 }
-
-button:hover {
-    background-color: #0D47A1;
-    transform: translateY(-2px);
-}
-
-/* Header styles */
-header[data-testid="stHeader"] {
-    background-color: #fff;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    padding: 1rem 2rem;
-}
-
-/* Main area styles */
-div[data-testid="stAppViewContainer"] {
-    padding: 2rem;
-    background-color: #F5F5F5;
-}
-
-/* Expander styles */
 div[data-testid="stExpander"] {
-    transition: all 300ms;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-color: rgba(247, 250, 248, 0.45) ;
+    background: transparent;
+    border: 0px solid black;
+}
+.st-emotion-cache-yf5hy5 p:nth-child(1) {
+    font-size: 16px;
+    color: green;
+    font-family: "Georgia";
+}
+.st-emotion-cache-yf5hy5 p:nth-child(2) {
+    font-size: 2.25rem;
+    font-weight: 800;
+    font-family: 'Heebo';
+    line-height:1.15;
+    letter-spacing: 0.25px;
+    margin: 10px 0 0 0;
+}
+header[data-testid="stHeader"] {
+    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1700734920/environmentalnewsscraper/gaymiakzqtkjyafo5ov3.png');
+    background-size: contain ;
+    background-repeat: no-repeat;
+    background-color:rgb(23, 48, 28);
+    height: 5rem;
 }
 
-div[data-testid="stExpander"] summary {
-    font-weight: 700;
+div[data-testid="stAppViewContainer"] > section:nth-child(2) {
+    overflow-x: hidden;
+}
+.st-emotion-cache-uf99v8 {
+    overflow-x: hidden;
 }
 
-div[data-testid="stExpander"] summary:hover {
-    color: #1E88E5;
+.appview-container > section:nth-child(2) > div:nth-child(1) {
+    padding: 4.5rem 0.5rem 0rem 1rem;
+}
+.appview-container > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+.st-dn {
+    background-color: transparent;
 }
 
-/* Image styles */
-div[data-testid="stImage"] img {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+
+div[data-testid="textInputRootElement"] {
+    border: 1px solid rgba(23, 48, 28, 0.95);
+}
+div[data-testid="stForm"] {
+    border: 0px;
+    padding:0;
+}
+div[data-testid="stExpanderDetails"] p {
+    font-family:'Georgia';
+    font-size: 18px;
+}
+div[data-testid="StyledLinkIconContainer"] {
+    font-weight: 900;
+    font-family:'Heebo';
+    font-size: 2.5rem;
+    letter-spacing: 0.25px;
+}
+div[data-testid="stMarkdownContainer"] h2 {
+    font-family:'Heebo';
+    font-weight: 800;
+    letter-spacing: 0.25px;
 }
 
-/* Markdown container styles */
-div[data-testid="stMarkdownContainer"] {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-    margin: 1rem 0;
-    padding: 2rem;
+.st-emotion-cache-z5fcl4 {
+    padding: 5rem 0.5rem 0rem 1rem;
 }
 
-/* Input styles */
-input {
-    border-radius: 5px;
-    border: 2px solid #ddd;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: all 300ms;
+.appview-container {
+    background: radial-gradient(rgba(23, 48, 28, 0.7), transparent);
+    background: #F6F4F0;
+}
+div[data-testid="stExpander"] > details {
+    bordder-radius: 0;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
+    gap: 0.5rem;
 }
 
-input:focus {
-    outline: none;
-    border-color: #1E88E5;
-    box-shadow: 0 0 0 3px rgba(30,136,229,0.3);
+div[data-testid="stExpander"] > details > summary:hover {
+    color: rgb(23, 48, 28);
+}
+ 
+div[data-baseweb="select"] {
+    font-family: "Heebo";
+    font-weight:600;
+    font-size: 15px;
+    letter-spacing: 0.25px;
 }
 
-/* Dropdown styles */
-select {
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    transition: all 300ms;
+ul[data-testid="stVirtualDropdown"] li {
+    text-align: center;
+    font-family: "Heebo";
+}
+ul[data-testid="stVirtualDropdown"] li:hover {
+    color: rgba(23, 48, 28, 0.95);
+    background-color:#B3BCB4;
 }
 
-select:hover {
-    background-color: #EBF1F5;
+div[data-baseweb="select"] > div:first-child > div > div:first-child {
+    padding-left: 48px;
+    color: #F6F4F0;
+    padding-top: 1px;
+    
 }
 
-/* Animation for button clicks */
-@keyframes click-wave {
-    0% {
-        height: 40px;
-        width: 40px;
-        opacity: 0.35;
-        position: relative;
-    }
-    100% {
-        height: 50px;
-        width: 50px;
-        margin-left: -10px;
-        margin-top: -10px;
-        opacity: 0;
-    }
+div[data-baseweb="select"] div {
+    background-color: rgba(23, 48, 28, 0.95);
+    color: #F6F4F0;
+    border: 0px;
+}
+div[data-baseweb="popover"] .st-dk {
+    background-color: rgba(23, 48, 28, 0.95);
+}
+div[data-baseweb="popover"] li {
+    color: #F6F4F0;
+    background-color: rgba(23, 48, 28, 0.95);
+}
+div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
+    background: #B3BCB4;
+    color: rgba(23, 48, 28, 0.95) !important;
 }
 
-button:active:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 100%;
-    width: 0;
-    height: 0;
-    margin-top: -20px;
-    margin-left: -20px;
-    background: rgba(0, 0, 0, 0.15);
-    animation: click-wave 1s;
+
+div[data-baseweb="select"] svg {
+    color: #F6F4F0;
 }
 
-/* Override Streamlit's default styles */
-.css-1d391kg {
-    padding: 0;
+div[data-testid="stForm"] .st-dk {
+    background-color: #DFE3E0;
 }
 
-.st-bq {
-    background-color: #fff;
+div[data-testid="stCaptionContainer"] {
+    margin-bottom: -1.75rem;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .stButton > button {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-}
 </style>
 ''', unsafe_allow_html=True)
 
