@@ -286,7 +286,7 @@ search_button = st.sidebar.button("Search", on_click=on_search)
 reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 st.sidebar.markdown(
-    "![GitHub](https://image.flaticon.com/icons/png/512/25/25231.png)"
+    "![GitHub](https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png)"
     "(https://github.com/nammmx/Environmental-News-Scraper)", 
     unsafe_allow_html=True
 )
