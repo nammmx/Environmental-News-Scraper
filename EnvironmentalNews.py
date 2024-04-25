@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
-from datetime import datetime, date
+from PIL import Image
+import datetime
 
-# Set up page configuration and custom styles
+# Set up Streamlit page configuration and CSS styling (omitted for brevity)
 st.set_page_config(layout="wide")
-# Include the CSS provided earlier directly into your app using the markdown feature
 st.markdown('''
 <style>
 @import url('https://fonts.googleapis.com/css?family=Heebo'); 
@@ -210,83 +210,79 @@ div[data-testid="stCaptionContainer"] {
 </style>
 ''', unsafe_allow_html=True)
 
-# Initialize the database engine using SQLAlchemy
-@st.experimental_singleton
-def get_engine():
-    user = st.secrets["username"]
-    password = st.secrets["pwd"]
-    host = st.secrets["hostname"]
-    port = st.secrets["port_id"]
-    db = st.secrets["database"]
-    return create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
+# Database connection setup using SQLAlchemy
+db_url = f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}"
+engine = create_engine(db_url)
 
-# Query execution with memoization
+# Function to execute query using SQLAlchemy
 @st.experimental_memo(ttl=1800)
-def load_data():
-    query = "SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE article != '' AND image != '';"
-    with get_engine().connect() as conn:
-        df = pd.read_sql(query, conn)
-    df['date_created'] = pd.to_datetime(df['date_created'])
-    return df
+def execute_query(query):
+    with engine.connect() as connection:
+        result = pd.read_sql_query(query, connection)
+    return result
 
-full_df = load_data()
+# Retrieve full dataframe with necessary columns
+full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, link, image, topic_2
+                           FROM news WHERE article != '' AND image != '';""")
 
-# Initialize session state variables if they don't exist
-if 'selected_date' not in st.session_state:
-    st.session_state.selected_date = date.today().strftime("%Y-%m-%d")
-if 'keyword' not in st.session_state:
-    st.session_state.keyword = ""
+# Setup date filters for sidebar
+min_date = datetime.date(2024, 1, 19)
+max_date = datetime.date.today()
 
-# Sidebar for date and keyword filter
+date_list = pd.date_range(min_date, max_date, freq='d').tolist()
+date_list_filter = [date.strftime("%Y-%m-%d") for date in date_list]
+
 st.sidebar.header("Date Filter")
-date_options = pd.date_range(start=date(2024, 1, 19), end=date.today(), freq='D').to_list()
-date_str_options = [d.strftime("%Y-%m-%d") for d in date_options]
+option = st.sidebar.selectbox("Select Date", options=date_list_filter, index=0, key="option")
 
-# Functions for buttons
-def set_today():
-    st.session_state.selected_date = date.today().strftime("%Y-%m-%d")
+if not 'selected_dates' in st.session_state:
+    st.session_state.selected_dates = [date_list_filter[-1]]
 
-def set_all_time():
-    st.session_state.selected_date = None
+# Define functions for date filters
+def update_date(option):
+    st.session_state.selected_dates = [option]
 
-# Date selection
-selected_date = st.sidebar.selectbox("Select Date", options=date_str_options, index=len(date_str_options)-1)
-st.sidebar.button("Today", on_click=set_today)
-st.sidebar.button("All Time", on_click=set_all_time)
+option = st.sidebar.selectbox("Select Date", options=date_list_filter, index=0, on_change=update_date, format_func=lambda x: x.strftime('%b. %d, %Y'))
+st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
+st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 
-# Keyword selection
+# Keyword filter in sidebar
 st.sidebar.header("Keyword Filter")
-st.session_state.keyword = st.sidebar.text_input("Enter keyword", value=st.session_state.keyword)
+keyword = st.sidebar.text_input("Search Keyword", "")
 
-# Display function for articles
+# Define a function to filter data and display articles
 def display_articles(df):
-    for _, row in df.iterrows():
-        with st.expander(f"{row['title']} ({row['date_created'].date()} - {row['topic']}"):
-            col1, col2 = st.columns([1, 3])
-            with col1:
-                st.image(row['image'], width=300)
-            with col2:
-                st.markdown(f"**Summary**: {row['summary']}")
-                st.markdown(f"[Read More]({row['link']})", unsafe_allow_html=True)
+    if not df.empty:
+        df.sort_values("date_created", ascending=False, inplace=True)
+        for index, row in df.iterrows():
+            with st.expander(f"{row['topic']} | {row['title']}"):
+                col1, col2 = st.columns([1, 2.25])
+                with col1:
+                    st.image(row['image'], width=300)
+                with col2:
+                    st.caption(row['date_created'].strftime('%B %d, %Y'))
+                    st.markdown(f"**Summary**: {row['summary']}")
+                    st.link_button("Read Article", row['link'])
+                st.divider()
 
-# Filter data based on date and keyword
-def filter_data(df, date_val, keyword_val):
-    if date_val:
-        df = df[df['date_created'].dt.date == datetime.strptime(date_val, "%Y-%m-%d").date()]
-    if keyword_val:
-        df = df[df['title'].str.contains(keyword_val, case=False) | df['summary'].str.contains(keyword_val, case=False)]
-    return df
+# Filter data based on selected dates and keyword and display in tabs
+selected_date_df = full_df[full_df['date_created'].isin(st.session_state.selected_dates)]
 
-# Tabs for topics
-topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
+if keyword:
+    selected_date_df = selected_date_df[selected_date_df['title'].str.contains(keyword, case=False) |
+                                         selected_date_df['summary'].str.contains(keyword, case=False) |
+                                         selected_date_df['topic'].str.contains(keyword, case=False) |
+                                         selected_date_df['topic_2'].str.contains(keyword, case=False)]
+
+topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
+          "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
+
 tabs = st.tabs(topics)
 
-# Filtering logic based on selected tab and applying the keyword and date filters
 for tab, topic in zip(tabs, topics):
     with tab:
-        topic_df = full_df if topic == "All" else full_df[(full_df['topic'] == topic) | (full_df['topic_2'] == topic)]
-        filtered_df = filter_data(topic_df, st.session_state.selected_date, st.session_state.keyword)
-        if filtered_df.empty:
-            st.write(f"No news for {topic}.")
+        if topic != "All":
+            topic_df = selected_date_df[(selected_date_df['topic'] == topic) | (selected_date_df['topic_2'] == topic)]
         else:
-            display_articles(filtered_df)
+            topic_df = selected_date_df
+        display_articles(topic_df)
