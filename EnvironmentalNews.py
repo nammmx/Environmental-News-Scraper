@@ -288,11 +288,13 @@ reset_button = st.sidebar.button("Reset", on_click=on_reset)
 st.sidebar.write("")
 st.sidebar.write("")
 st.sidebar.markdown(
+    '<div style="text-align: center;">'
     '<a href="https://github.com/nammmx/Environmental-News-Scraper">'
     '<img src="https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png" '
-    'style="display: block; margin-left: auto; margin-right: auto; width: 30%;" /><br>
-    'View on GitHub'/>'
-    '</a>',
+    'style="width: 30%;" /><br>'  # Line break to move the caption to the next line
+    'View on GitHub'
+    '</a>'
+    '</div>',
     unsafe_allow_html=True
 )
 
