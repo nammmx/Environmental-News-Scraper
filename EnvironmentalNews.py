@@ -9,160 +9,166 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f4f5f7;
-    color: #333;
-    line-height: 1.6;
+    font-family: 'Nunito', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    color: #1c1e21;
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    margin-top: 22px;
-    margin-bottom: 22px;
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, transparent, #1c1e21, transparent);
+h2, h3, h4, h5, h6 {
+    font-weight: 700;
 }
 
+/* Sidebar styles */
 section[data-testid="stSidebar"] {
-    background: #fff;
+    background-color: #fff;
     border-right: 2px solid #e1e4e8;
+    padding: 2rem;
 }
 
-section[data-testid="stSidebar"] .sidebar-content {
-    padding-top: 1rem;
-}
-
-div.stButton > button {
-    background-color: #106ba3;
-    color: white;
-    border: none;
+/* Button styles */
+button {
+    border: 2px solid transparent;
     padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 5px;
+    transition: all 300ms;
+    color: #fff;
+    background-color: #1E88E5;
+    font-weight: 700;
 }
 
-div.stButton > button:hover {
-    background-color: #005682;
+button:hover {
+    background-color: #0D47A1;
     transform: translateY(-2px);
 }
 
+/* Header styles */
 header[data-testid="stHeader"] {
-    background-color: #20232a;
-    color: #61dafb;
+    background-color: #fff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
 }
 
+/* Main area styles */
 div[data-testid="stAppViewContainer"] {
-    background-color: #fff;
-}
-
-div.stMarkdown {
-    border-radius: 0.5rem;
-    background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
-    transition: box-shadow 0.3s;
     padding: 2rem;
-    margin: 1rem 0;
+    background-color: #F5F5F5;
 }
 
-div.stMarkdown:hover {
-    box-shadow: 0 4px 8px 0 rgba(46, 62, 72, 0.2);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.25rem;
-}
-
-div[data-testid="stImage"] img {
-    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
-}
-
-div[data-testid="stForm"] {
-    padding: 2rem;
-    border-radius: 0.5rem;
-    background-color: #fff;
+/* Expander styles */
+div[data-testid="stExpander"] {
+    transition: all 300ms;
     margin-bottom: 1rem;
-    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
-}
-
-.stTextInput > div > div > input {
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    border: 1px solid #cbd2d6;
-}
-
-.stTextInput > div > div > input:focus {
-    outline: none;
-    border-color: #106ba3;
-    box-shadow: 0 0 0 0.2rem rgba(16, 107, 163, 0.25);
-}
-
-.st-expander > header {
-    font-size: 1.25rem;
-}
-
-div[data-testid="stExpander"] > details > summary {
-    font-weight: 700;
-    color: #106ba3;
-}
-
-.st-expander > div > div {
-    padding: 1rem;
-    border-top: 1px solid #e1e4e8;
-}
-
-.st-ee, .st-cx, .st-bx {
+    border-radius: 8px;
     background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-.st-dt {
-    border: 1px solid #e1e4e8;
+div[data-testid="stExpander"] summary {
+    font-weight: 700;
 }
 
+div[data-testid="stExpander"] summary:hover {
+    color: #1E88E5;
+}
+
+/* Image styles */
+div[data-testid="stImage"] img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+/* Markdown container styles */
+div[data-testid="stMarkdownContainer"] {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+    margin: 1rem 0;
+    padding: 2rem;
+}
+
+/* Input styles */
+input {
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: all 300ms;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1E88E5;
+    box-shadow: 0 0 0 3px rgba(30,136,229,0.3);
+}
+
+/* Dropdown styles */
+select {
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    transition: all 300ms;
+}
+
+select:hover {
+    background-color: #EBF1F5;
+}
+
+/* Animation for button clicks */
+@keyframes click-wave {
+    0% {
+        height: 40px;
+        width: 40px;
+        opacity: 0.35;
+        position: relative;
+    }
+    100% {
+        height: 50px;
+        width: 50px;
+        margin-left: -10px;
+        margin-top: -10px;
+        opacity: 0;
+    }
+}
+
+button:active:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 100%;
+    width: 0;
+    height: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    background: rgba(0, 0, 0, 0.15);
+    animation: click-wave 1s;
+}
+
+/* Override Streamlit's default styles */
+.css-1d391kg {
+    padding: 0;
+}
+
+.st-bq {
+    background-color: #fff;
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
-    div.stButton > button {
+    .stButton > button {
         width: 100%;
         margin-bottom: 0.5rem;
     }
 }
-
-/* Keyframes for loading animation */
-@keyframes loading {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Animation for spinners */
-.st-eb > div {
-    animation: loading 1s infinite linear;
-}
-
-/* Keyframes for fade-in effect */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Fade-in effect for images */
-div[data-testid="stImage"] {
-    animation: fadeIn 0.5s ease-out;
-}
-
 </style>
 ''', unsafe_allow_html=True)
+
 
 
 # Database connection setup using SQLAlchemy
