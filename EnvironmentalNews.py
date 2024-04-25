@@ -1,11 +1,11 @@
 import streamlit as st
-import psycopg2
 import pandas as pd
+from sqlalchemy import create_engine
+from datetime import datetime, date
 from PIL import Image
-import datetime
 
+# Set page configuration and custom styles
 st.set_page_config(layout="wide")
-
 st.markdown('''
 <style>
 @import url('https://fonts.googleapis.com/css?family=Heebo'); 
@@ -208,277 +208,90 @@ div[data-testid="stCaptionContainer"] {
 }
 
 </style>
+
 ''', unsafe_allow_html=True)
 
+# Database connection setup with SQLAlchemy
+@st.experimental_singleton
+def get_engine():
+    user = st.secrets["username"]
+    password = st.secrets["pwd"]
+    host = st.secrets["hostname"]
+    port = st.secrets["port_id"]
+    db = st.secrets["database"]
+    return create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
 
+# Query execution with memoization
+@st.experimental_memo(ttl=1800)
+def load_data():
+    query = """
+    SELECT news_id, date_created, title, topic, summary, link, image, topic_2
+    FROM news
+    WHERE article != '' AND image != '';
+    """
+    with get_engine().connect() as conn:
+        df = pd.read_sql(query, conn)
+    df['date_created'] = pd.to_datetime(df['date_created'])
+    return df
 
-hostname = st.secrets["hostname"]
-database = st.secrets["database"]
-username = st.secrets["username"]
-port_id = st.secrets["port_id"]
-pwd = st.secrets["pwd"]
+full_df = load_data()
 
+# Session state initialization
+if 'selected_date' not in st.session_state:
+    st.session_state['selected_date'] = date.today().strftime("%Y-%m-%d")
+if 'keyword' not in st.session_state:
+    st.session_state['keyword'] = ""
 
-@st.cache_data(ttl=1800, show_spinner=False)
-def execute_query(query, hostname, database, username, port_id, pwd, result = None):
-        
-    conn = None
-    cur = None
-
-    try:
-        conn = psycopg2.connect(
-            host = hostname,
-            dbname = database,
-            user = username,
-            password = pwd,
-            port = port_id
-        )
-
-        cur = conn.cursor()
-        cur.execute(query)
-        if cur.pgresult_ptr is not None:
-            result = pd.read_sql_query(query, conn)
-        conn.commit()
-        return result
-    except Exception as error:
-        print(error)
-    finally:
-        if cur is not None:
-            cur.close()
-        if conn is not None:
-            conn.close()
-
-full_df = execute_query(query=f"""SELECT news_id, date_created, title, topic, summary, link, image, topic_2 FROM news WHERE article != '' AND image != '';""", hostname=hostname, database=database, username=username, port_id=port_id, pwd=pwd)
-####################################################################################################### date filters
-min_date = datetime.date(2024,1,19)
-max_date = datetime.date(datetime.date.today().year, datetime.date.today().month, datetime.date.today().day)
-
-dates = pd.date_range(min_date,max_date + datetime.timedelta(days=1)-datetime.timedelta(days=1),freq='d').to_list()
-date_list = [date_obj.strftime("%Y-%m-%d %H:%M:%S") for date_obj in dates]
-date_list_filter = [date_obj.strftime("%Y-%m-%d") for date_obj in dates]
-
-lst1 = []
-lst1.append(date_list)
-for i in range(0,len(date_list)):
-    lst1.append(date_list[i])
-
-if 'list' not in st.session_state:
-    st.session_state.list = []
-if 'date' not in st.session_state:
-    st.session_state.date = [date_list_filter[len(date_list_filter)-1]]
-
-if 'show_date' not in st.session_state:
-    st.session_state.show_date = date_list_filter[len(date_list_filter)-1]
-
-def select_date():
-    st.session_state.list.append(st.session_state.option)
-    st.session_state.date = st.session_state.list[-1:]
-    st.session_state.show_date = st.session_state.list[-1]
-
-def today():
-    st.session_state.date = [date_list_filter[len(date_list_filter)-1]]
-    st.session_state.show_date = date_list_filter[len(date_list_filter)-1]
-
-def all_dates():
-    st.session_state.date = lst1[0]
-    st.session_state.show_date = "All"
-
-def clear_text():
-    st.session_state["text"] = ""
-
-
+# Sidebar for date and keyword filters
 st.sidebar.header("Date Filter")
+today = date.today()
+date_options = pd.date_range(start=date(2024, 1, 19), end=today, freq='D').to_list()
+date_str_options = [d.strftime("%Y-%m-%d") for d in date_options]
 
-option = [st.sidebar.selectbox(
-    label="select", label_visibility= "collapsed",
-    options=(date_list_filter[::-1]), index=0, on_change=select_date, key="option")]
+selected_date = st.sidebar.selectbox("Select Date", options=date_str_options, index=len(date_str_options)-1)
+st.sidebar.button("Today", on_click=lambda: st.session_state.update({'selected_date': today.strftime("%Y-%m-%d")}))
+st.sidebar.button("All Time", on_click=lambda: st.session_state.update({'selected_date': None}))
 
-if st.sidebar.button("Today", on_click=today):
-    pass
-
-if st.sidebar.button("All Time", on_click=all_dates):
-    pass
-
-
-if st.session_state.show_date == "All":
-    result_display = "All Time"
-elif st.session_state.show_date == date_list_filter[len(date_list_filter)-1]:
-    result_display = "Today"
-else:
-    result_display = datetime.datetime.strptime(st.session_state.show_date, "%Y-%m-%d").strftime('%b. %d, %Y')
-st.header(f"News from {result_display}")
-
-####################################################################################################### keyword filter
 st.sidebar.header("Keyword Filter")
-with st.sidebar.form("my-form"):
-   st.session_state.keyword = st.text_input(label="",placeholder='Search Keyword', label_visibility="collapsed", key="text")
-   submit_button = st.form_submit_button("Search")
-   if st.form_submit_button('Reset', on_click=clear_text):
-    st.session_state.keyword = ""
+keyword = st.sidebar.text_input("Enter keyword", value=st.session_state['keyword'])
 
-####################################################################################################### display articles
-st.cache_data(ttl=1800, show_spinner=False)
-def display(df):
-    df = df.sort_values("date_created", ascending=False)
-    for index, row in df.iterrows():
-        try:
-            display_date = row[1]
-            display_title = row[2]
-            display_topic = row[3]
-            display_summary = row[4]
-            display_link = row[5]
-            display_image = row[6]
-            display_topic_2 = row[7] 
-            if row[7] is None:
-                only_display_topic_2 = ""
-            else:
-                only_display_topic_2 = f""" | {row[7]}"""
-            with st.expander(f"""{display_topic}{only_display_topic_2}\n\n{display_title}""", expanded=True):
-                st.write("")
-                col1, col2 = st.columns([1,2.25])
-                with col1:
-                    st.image(f"""{display_image}""", width=300, use_column_width=True)
-                with col2:
-                    st.caption(display_date.strftime('%B %d, %Y'))
-                    st.markdown(f"**Summary**: {display_summary}")
-                    st.link_button("Read Article", display_link) 
-            st.divider()
-        except Exception as e:
-            pass
-        
+# Display function for articles
+def display_articles(df):
+    for _, row in df.iterrows():
+        with st.expander(f"{row['title']} ({row['date_created'].date()} - {row['topic']}"):
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.image(row['image'], width=300, caption=row['date_created'].strftime('%b %d, %Y'))
+            with col2:
+                st.markdown(f"**Summary**: {row['summary']}")
+                st.markdown(f"[Read More]({row['link']})", unsafe_allow_html=True)
 
+# Filter data based on date and keyword
+def filter_data(df, date, keyword):
+    if date:
+        df = df[df['date_created'].dt.date == datetime.strptime(date, "%Y-%m-%d").date()]
+    if keyword:
+        df = df[df.apply(lambda x: keyword.lower() in x['title'].lower() or keyword.lower() in x['summary'].lower(), axis=1)]
+    return df
 
+# Apply filters and display articles
+filtered_df = filter_data(full_df, st.session_state['selected_date'], st.session_state['keyword'])
+if filtered_df.empty:
+    st.write("No articles found.")
+else:
+    display_articles(filtered_df)
 
-####################################################################################################### tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12 = st.tabs(["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"])
-with tab1:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-    
-with tab2:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Business & Innovation") | (df["topic_2"]=="Business & Innovation")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
+# Tabs for topics
+topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel", "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
+tabs = st.tabs(topics)
 
-with tab3:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Climate Change") | (df["topic_2"]=="Climate Change")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab4:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Crisis") | (df["topic_2"]=="Crisis")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab5:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Energy") | (df["topic_2"]=="Energy")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab6:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Environmental Law") | (df["topic_2"]=="Environmental Law")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab7:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Fossil Fuel") | (df["topic_2"]=="Fossil Fuel")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab8:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Lifestyle") | (df["topic_2"]=="Lifestyle")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab9:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Pollution") | (df["topic_2"]=="Pollution")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab10:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Society") | (df["topic_2"]=="Society")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-
-with tab11:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Water") | (df["topic_2"]=="Water")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
-    
-
-with tab12:
-    date_filter = full_df["date_created"].dt.floor("D").isin(st.session_state.date)
-    df = full_df[date_filter]
-    df["date_created"] = pd.to_datetime(df['date_created']).dt.date 
-    df = df[(df["topic"]=="Wildlife & Conservation") | (df["topic_2"]=="Wildlife & Conservation")]
-    df = df[(df["title"].str.contains(st.session_state.keyword, case=False)) | (df["summary"].str.contains(st.session_state.keyword, case=False)) | (df["topic"].str.contains(st.session_state.keyword, case=False)) | (df["topic_2"].str.contains(st.session_state.keyword, case=False))]
-    try:
-        display(df)
-    except Exception as e:
-        pass
+for tab, topic in zip(tabs, topics):
+    with tab:
+        if topic == "All":
+            topic_df = filtered_df
+        else:
+            topic_df = filtered_df[(filtered_df['topic'] == topic) | (filtered_df['topic_2'] == topic)]
+        if topic_df.empty:
+            st.write(f"No news for {topic}.")
+        else:
+            display_articles(topic_df)
