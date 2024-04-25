@@ -311,8 +311,6 @@ if st.session_state.keyword:
 topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
           "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
 
-tabs = st.tabs(topics)
-
 selected_dates = st.session_state.get('selected_dates', [])
 if not selected_dates:
     result_display = "All Time"
@@ -322,6 +320,8 @@ else:
     result_display = format_date(st.session_state['date_select'])
 
 st.header(f"News from {result_display}")
+
+tabs = st.tabs(topics)
 
 
 for tab, topic in zip(tabs, topics):
