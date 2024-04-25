@@ -286,7 +286,7 @@ def display_articles(df):
     if not df.empty:
         df.sort_values("date_created", ascending=False, inplace=True)
         for index, row in df.iterrows():
-            with st.expander(f"{row['topic']} | {row['topic_2']}\n\n{row['title']}"):
+            with st.expander(f"{row['topic']} | {row['topic_2']}\n\n{row['title']}", expanded=True):
                 col1, col2 = st.columns([1, 2.25])
                 with col1:
                     st.image(row['image'], width=300)
