@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from PIL import Image
 import datetime
 
-# Set up Streamlit page configuration and CSS styling (omitted for brevity)
+# Set up Streamlit page configuration
 st.set_page_config(layout="wide")
 
 st.markdown('''
@@ -215,7 +215,6 @@ div[data-testid="stCaptionContainer"] {
 db_url = f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}"
 engine = create_engine(db_url)
 
-# Function to execute query using SQLAlchemy
 @st.experimental_memo(ttl=1800)
 def execute_query(query):
     with engine.connect() as connection:
@@ -225,32 +224,34 @@ def execute_query(query):
 # Retrieve full dataframe with necessary columns
 full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, link, image, topic_2
                            FROM news WHERE article != '' AND image != '';""")
-st.write("Total articles fetched:", full_df.shape[0])  # Debugging statement
 
 # Setup date filters for sidebar
-min_date = datetime.date(2024, 4, 20)  # Adjust to an appropriate minimum date based on your data
+min_date = datetime.date(2022, 1, 1)  # Adjust as necessary
 max_date = datetime.date.today()
 
 date_list = pd.date_range(min_date, max_date, freq='d').tolist()
 date_list_filter = [date.strftime("%Y-%m-%d") for date in date_list]
+date_list_filter.reverse()  # Display dates in descending order
 
 def format_date(date_str):
     return datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime('%b %d, %Y')
 
 def update_date(option):
-    st.session_state.selected_dates = [datetime.datetime.strptime(option, "%Y-%m-%d").date()]
+    if isinstance(option, list):
+        st.session_state.selected_dates = [datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in option]
+    else:
+        st.session_state.selected_dates = [datetime.datetime.strptime(option, "%Y-%m-%d").date()]
 
 if 'selected_dates' not in st.session_state:
     st.session_state.selected_dates = [max_date]
 
 st.sidebar.header("Date Filter")
-option = st.sidebar.selectbox(
+selected_date = st.sidebar.selectbox(
     "Select Date",
     options=date_list_filter,
-    index=len(date_list_filter) - 1,
+    index=0,
     format_func=format_date,
-    on_change=update_date,
-    key="date_select"
+    on_change=lambda: update_date(st.session_state['date_select'])
 )
 
 st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
@@ -260,7 +261,6 @@ st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 st.sidebar.header("Keyword Filter")
 keyword = st.sidebar.text_input("Search Keyword", "")
 
-# Define a function to filter data and display articles
 def display_articles(df):
     if not df.empty:
         df.sort_values("date_created", ascending=False, inplace=True)
@@ -277,14 +277,12 @@ def display_articles(df):
 
 # Filter data based on selected dates and keyword and display in tabs
 selected_date_df = full_df[full_df['date_created'].dt.date.isin(st.session_state.selected_dates)]
-st.write("Filtered by date:", selected_date_df.shape[0])  # Debugging statement
 
 if keyword:
     selected_date_df = selected_date_df[selected_date_df['title'].str.contains(keyword, case=False) |
                                          selected_date_df['summary'].str.contains(keyword, case=False) |
                                          selected_date_df['topic'].str.contains(keyword, case=False) |
                                          selected_date_df['topic_2'].str.contains(keyword, case=False)]
-    st.write("Filtered by keyword:", selected_date_df.shape[0])  # Debugging statement
 
 topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
           "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
