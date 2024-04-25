@@ -9,42 +9,51 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f5f7;
+    color: #333;
+    line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Condensed', sans-serif;
-    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    color: #1c1e21;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-top: 22px;
+    margin-bottom: 22px;
 }
 
 hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(23, 48, 28, 0), rgba(23, 48, 28, 0.75), rgba(23, 48, 28, 0));
-}
-
-div[data-testid="stToolbarActions"], #MainMenu, footer {
-    display: none;
+    background-image: linear-gradient(to right, transparent, #1c1e21, transparent);
 }
 
 section[data-testid="stSidebar"] {
-    background-color: #f8f9fa;
-    border-right: 1px solid #e0e0e0;
+    background: #fff;
+    border-right: 2px solid #e1e4e8;
+}
+
+section[data-testid="stSidebar"] .sidebar-content {
+    padding-top: 1rem;
 }
 
 div.stButton > button {
-    border: 1px solid rgba(23, 48, 28, 0.95);
-    background-color: #28a745;
+    background-color: #106ba3;
     color: white;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 24px;
-    margin: 5px 0;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+div.stButton > button:hover {
+    background-color: #005682;
+    transform: translateY(-2px);
 }
 
 header[data-testid="stHeader"] {
@@ -54,70 +63,107 @@ header[data-testid="stHeader"] {
 
 div[data-testid="stAppViewContainer"] {
     background-color: #fff;
+}
+
+div.stMarkdown {
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
+    transition: box-shadow 0.3s;
     padding: 2rem;
+    margin: 1rem 0;
 }
 
-div.stMarkdown, div.streamlit-expanderHeader {
-    border-radius: 4px;
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    margin-bottom: 25px;
-    background-color: #f8f9fa;
-}
-
-div[data-testid="stMarkdownContainer"] h2, h3 {
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+div.stMarkdown:hover {
+    box-shadow: 0 4px 8px 0 rgba(46, 62, 72, 0.2);
 }
 
 img {
     max-width: 100%;
     height: auto;
+    border-radius: 0.25rem;
 }
 
 div[data-testid="stImage"] img {
-    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
 }
 
 div[data-testid="stForm"] {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-    border: 1px solid #e0e0e0;
-    margin-bottom: 25px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
+}
+
+.stTextInput > div > div > input {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #cbd2d6;
+}
+
+.stTextInput > div > div > input:focus {
+    outline: none;
+    border-color: #106ba3;
+    box-shadow: 0 0 0 0.2rem rgba(16, 107, 163, 0.25);
+}
+
+.st-expander > header {
+    font-size: 1.25rem;
 }
 
 div[data-testid="stExpander"] > details > summary {
-    font-weight: bold;
-    color: #28a745;
+    font-weight: 700;
+    color: #106ba3;
 }
 
-.st-emotion {
-    overflow-x: hidden;
-}
-
-.st-dn {
-    background-color: transparent;
+.st-expander > div > div {
+    padding: 1rem;
+    border-top: 1px solid #e1e4e8;
 }
 
 .st-ee, .st-cx, .st-bx {
-    border-radius: 4px;
-    background-color: #f8f9fa;
-    padding: 1em;
-}
-
-.st-cj {
-    background-color: #f8f9fa;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px 0 rgba(46, 62, 72, 0.12);
 }
 
 .st-dt {
-    border: 1px solid #e0e0e0;
+    border: 1px solid #e1e4e8;
+}
+
+@media (max-width: 768px) {
+    div.stButton > button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Keyframes for loading animation */
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animation for spinners */
+.st-eb > div {
+    animation: loading 1s infinite linear;
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Fade-in effect for images */
+div[data-testid="stImage"] {
+    animation: fadeIn 0.5s ease-out;
 }
 
 </style>
 ''', unsafe_allow_html=True)
+
 
 # Database connection setup using SQLAlchemy
 db_url = f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}"
