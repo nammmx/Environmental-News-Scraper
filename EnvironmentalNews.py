@@ -286,10 +286,10 @@ search_button = st.sidebar.button("Search", on_click=on_search)
 reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 st.sidebar.markdown(
-    "![GitHub](https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png)"
-    "(https://github.com/nammmx/Environmental-News-Scraper)", 
-    unsafe_allow_html=True
+    "[![GitHub](https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png)]"
+    "(https://github.com/nammmx/Environmental-News-Scraper)"
 )
+
 
 
 def display_articles(df):
