@@ -253,6 +253,8 @@ if 'date_select' not in st.session_state:
 
 st.sidebar.header("Date Filter")
 selected_date = st.sidebar.selectbox(
+    "Select Date",
+    label_visibility= "collapsed",
     options=date_list_filter,
     index=0,
     format_func=format_date,
@@ -270,6 +272,7 @@ def on_search():
 
 keyword_input = st.sidebar.text_input(
     "Search Keyword",
+    label_visibility= "collapsed",
     key='keyword_input',
     on_change=on_search
 )
