@@ -286,10 +286,11 @@ search_button = st.sidebar.button("Search", on_click=on_search)
 reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 st.sidebar.write("")
+st.sidebar.write("")
 st.sidebar.markdown(
     '<a href="https://github.com/nammmx/Environmental-News-Scraper">'
     '<img src="https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png" '
-    'style="display: block; margin-left: auto; margin-right: auto; width: 25%;" />'
+    'style="display: block; margin-left: auto; margin-right: auto; width: 33%;" />'
     '</a>',
     unsafe_allow_html=True
 )
