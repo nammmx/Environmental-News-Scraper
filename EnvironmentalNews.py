@@ -224,9 +224,10 @@ def execute_query(query):
 # Retrieve full dataframe with necessary columns
 full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, link, image, topic_2
                            FROM news WHERE article != '' AND image != '';""")
+st.write("Total articles fetched:", full_df.shape[0])  # Debugging statement
 
 # Setup date filters for sidebar
-min_date = datetime.date(2024, 1, 19)
+min_date = datetime.date(2024, 4, 19)
 max_date = datetime.date.today()
 
 date_list = pd.date_range(min_date, max_date, freq='d').tolist()
@@ -234,9 +235,11 @@ date_list_filter = [date.strftime("%Y-%m-%d") for date in date_list]
 
 st.sidebar.header("Date Filter")
 
-# Convert string date to datetime.date object before formatting
 def format_date(date_str):
     return datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime('%b. %d, %Y')
+
+def update_date(option):
+    st.session_state.selected_dates = [option]
 
 option = st.sidebar.selectbox(
     "Select Date",
@@ -244,12 +247,6 @@ option = st.sidebar.selectbox(
     index=0,
     format_func=format_date
 )
-
-if not 'selected_dates' in st.session_state:
-    st.session_state.selected_dates = [date_list_filter[-1]]
-
-def update_date(option):
-    st.session_state.selected_dates = [option]
 
 st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
 st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
@@ -260,6 +257,7 @@ keyword = st.sidebar.text_input("Search Keyword", "")
 
 # Define a function to filter data and display articles
 def display_articles(df):
+    st.write("Displaying articles:", df.shape[0])  # Debugging statement
     if not df.empty:
         df.sort_values("date_created", ascending=False, inplace=True)
         for index, row in df.iterrows():
@@ -274,13 +272,15 @@ def display_articles(df):
                 st.divider()
 
 # Filter data based on selected dates and keyword and display in tabs
-selected_date_df = full_df[full_df['date_created'].isin(st.session_state.selected_dates)]
+selected_date_df = full_df[full_df['date_created'].dt.strftime('%Y-%m-%d').isin(st.session_state.selected_dates)]
+st.write("Filtered by date:", selected_date_df.shape[0])  # Debugging statement
 
 if keyword:
     selected_date_df = selected_date_df[selected_date_df['title'].str.contains(keyword, case=False) |
                                          selected_date_df['summary'].str.contains(keyword, case=False) |
                                          selected_date_df['topic'].str.contains(keyword, case=False) |
                                          selected_date_df['topic_2'].str.contains(keyword, case=False)]
+    st.write("Filtered by keyword:", selected_date_df.shape[0])  # Debugging statement
 
 topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
           "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
