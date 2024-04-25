@@ -290,7 +290,8 @@ st.sidebar.write("")
 st.sidebar.markdown(
     '<a href="https://github.com/nammmx/Environmental-News-Scraper">'
     '<img src="https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png" '
-    'style="display: block; margin-left: auto; margin-right: auto; width: 33%;" />'
+    'style="display: block; margin-left: auto; margin-right: auto; width: 30%;" /><br>
+    'View on GitHub'/>'
     '</a>',
     unsafe_allow_html=True
 )
