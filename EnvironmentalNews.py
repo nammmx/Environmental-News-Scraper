@@ -320,7 +320,7 @@ def display_articles(df):
             with st.expander(f"{row['topic']} | {row['topic_2']}\n\n{row['title']}", expanded=True):
                 col1, col2 = st.columns([1, 2.25])
                 with col1:
-                    st.image(row['image'], width=100%)
+                    st.image(row['image'], use_column_width='auto')
                 with col2:
                     st.caption(row['date_created'].strftime('%B %d, %Y'))
                     st.markdown(f"**Summary**: {row['summary']}")
