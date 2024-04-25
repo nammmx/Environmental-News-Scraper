@@ -9,204 +9,111 @@ st.set_page_config(layout="wide")
 
 st.markdown('''
 <style>
-@import url('https://fonts.googleapis.com/css?family=Heebo'); 
-@import url('https://fonts.googleapis.com/css?family=Heebo:400,600,800,900');  
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
 
-body * { 
-    -webkit-font-smoothing: subpixel-antialiased !important; 
-    text-rendering:optimizeLegibility !important;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
-body hr {
-    border-bottom: 1.5px solid rgba(23, 48, 28, 0.5); 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #333;
 }
 
-div[data-testid="stToolbarActions"] {
-    visibility:hidden;
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(23, 48, 28, 0), rgba(23, 48, 28, 0.75), rgba(23, 48, 28, 0));
 }
 
-#MainMenu {visibility: hidden;}
-
-footer {visibility: hidden;}
-
-div[data-baseweb="tab-panel"] {
-    padding-top: 2rem;
+div[data-testid="stToolbarActions"], #MainMenu, footer {
+    display: none;
 }
 
-div.stButton > button:first-child {
-    width: 200px;
-    background-color: rgba(23, 48, 28, 0.95) ;
-    color: #F6F4F0; 
-}
-div.stButton p {
-    font-family: "Heebo";
-    font-weight:600;
-    font-size: 15px;
-    letter-spacing: 0.25px;
-    padding-top: 1px;
-}
-
-div.stLinkButton > a:first-child {
-    width: 125px;
-    background-color: rgba(23, 48, 28, 0.95) ;
-    font-family: "Heebo" !important;
-    letter-spacing: 0.25px;
-    
-}
-div.stLinkButton p {
-    font-size: 15px !important;
-    color: #F6F4F0;
-    font-family: "Heebo" !important;
-    font-weight: 600;
-}
 section[data-testid="stSidebar"] {
-    top: 5rem;
-    width: 200px !important; 
-    background-color:#CDD4D0;
-    background: #F6F4F0;
-    border-right: 1.5px solid rgba(23, 48, 28, 0.5);
+    background-color: #f8f9fa;
+    border-right: 1px solid #e0e0e0;
 }
-div[data-testid="collapsedControl"] {
-    top:5.15rem;
-}
-div[data-testid="stExpander"] {
-    background-color: rgba(247, 250, 248, 0.45) ;
-    background: transparent;
-    border: 0px solid black;
-}
-.st-emotion-cache-yf5hy5 p:nth-child(1) {
+
+div.stButton > button {
+    border: 1px solid rgba(23, 48, 28, 0.95);
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
     font-size: 16px;
-    color: green;
-    font-family: "Georgia";
+    font-weight: bold;
+    padding: 10px 24px;
+    margin: 5px 0;
 }
-.st-emotion-cache-yf5hy5 p:nth-child(2) {
-    font-size: 2.25rem;
-    font-weight: 800;
-    font-family: 'Heebo';
-    line-height:1.15;
-    letter-spacing: 0.25px;
-    margin: 10px 0 0 0;
-}
+
 header[data-testid="stHeader"] {
-    background: url('https://res.cloudinary.com/drwsupfyj/image/upload/v1700734920/environmentalnewsscraper/gaymiakzqtkjyafo5ov3.png');
-    background-size: contain ;
-    background-repeat: no-repeat;
-    background-color:rgb(23, 48, 28);
-    height: 5rem;
+    background-color: #20232a;
+    color: #61dafb;
 }
 
-div[data-testid="stAppViewContainer"] > section:nth-child(2) {
-    overflow-x: hidden;
+div[data-testid="stAppViewContainer"] {
+    background-color: #fff;
+    padding: 2rem;
 }
-.st-emotion-cache-uf99v8 {
+
+div.stMarkdown, div.streamlit-expanderHeader {
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 25px;
+    background-color: #f8f9fa;
+}
+
+div[data-testid="stMarkdownContainer"] h2, h3 {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+div[data-testid="stImage"] img {
+    border-radius: 4px;
+}
+
+div[data-testid="stForm"] {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 25px;
+}
+
+div[data-testid="stExpander"] > details > summary {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.st-emotion {
     overflow-x: hidden;
 }
 
-.appview-container > section:nth-child(2) > div:nth-child(1) {
-    padding: 4.5rem 0.5rem 0rem 1rem;
-}
-.appview-container > section:nth-child(1) > div:nth-child(1) > div:nth-child(2) {
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
-}
 .st-dn {
     background-color: transparent;
 }
 
-
-div[data-testid="textInputRootElement"] {
-    border: 1px solid rgba(23, 48, 28, 0.95);
-}
-div[data-testid="stForm"] {
-    border: 0px;
-    padding:0;
-}
-div[data-testid="stExpanderDetails"] p {
-    font-family:'Georgia';
-    font-size: 18px;
-}
-div[data-testid="StyledLinkIconContainer"] {
-    font-weight: 900;
-    font-family:'Heebo';
-    font-size: 2.5rem;
-    letter-spacing: 0.25px;
-}
-div[data-testid="stMarkdownContainer"] h2 {
-    font-family:'Heebo';
-    font-weight: 800;
-    letter-spacing: 0.25px;
+.st-ee, .st-cx, .st-bx {
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    padding: 1em;
 }
 
-.st-emotion-cache-z5fcl4 {
-    padding: 5rem 0.5rem 0rem 1rem;
+.st-cj {
+    background-color: #f8f9fa;
 }
 
-.appview-container {
-    background: radial-gradient(rgba(23, 48, 28, 0.7), transparent);
-    background: #F6F4F0;
-}
-div[data-testid="stExpander"] > details {
-    bordder-radius: 0;
-    border-color: rgba(255, 255, 255, 0.05);
-}
-div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
-    gap: 0.5rem;
-}
-
-div[data-testid="stExpander"] > details > summary:hover {
-    color: rgb(23, 48, 28);
-}
- 
-div[data-baseweb="select"] {
-    font-family: "Heebo";
-    font-weight:600;
-    font-size: 15px;
-    letter-spacing: 0.25px;
-}
-
-ul[data-testid="stVirtualDropdown"] li {
-    text-align: center;
-    font-family: "Heebo";
-}
-ul[data-testid="stVirtualDropdown"] li:hover {
-    color: rgba(23, 48, 28, 0.95);
-    background-color:#B3BCB4;
-}
-
-div[data-baseweb="select"] > div:first-child > div > div:first-child {
-    padding-left: 48px;
-    color: #F6F4F0;
-    padding-top: 1px;
-    
-}
-
-div[data-baseweb="select"] div {
-    background-color: rgba(23, 48, 28, 0.95);
-    color: #F6F4F0;
-    border: 0px;
-}
-div[data-baseweb="popover"] .st-dk {
-    background-color: rgba(23, 48, 28, 0.95);
-}
-div[data-baseweb="popover"] li {
-    color: #F6F4F0;
-    background-color: rgba(23, 48, 28, 0.95);
-}
-div[data-baseweb="popover"]  .st-emotion-cache-35i14j {
-    background: #B3BCB4;
-    color: rgba(23, 48, 28, 0.95) !important;
-}
-
-
-div[data-baseweb="select"] svg {
-    color: #F6F4F0;
-}
-
-div[data-testid="stForm"] .st-dk {
-    background-color: #DFE3E0;
-}
-
-div[data-testid="stCaptionContainer"] {
-    margin-bottom: -1.75rem;
+.st-dt {
+    border: 1px solid #e0e0e0;
 }
 
 </style>
