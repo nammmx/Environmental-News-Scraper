@@ -242,14 +242,13 @@ def update_date(option):
     else:
         st.session_state.selected_dates = [datetime.datetime.strptime(option, "%Y-%m-%d").date()]
 
+# Initialize session state variables
 if 'selected_dates' not in st.session_state:
     st.session_state['selected_dates'] = [max_date]
-
-if 'date_select' not in st.session_state:
-    st.session_state['date_select'] = date_list_filter[0]
-
 if 'keyword' not in st.session_state:
     st.session_state['keyword'] = ''
+if 'date_select' not in st.session_state:
+    st.session_state['date_select'] = date_list_filter[0]
 
 st.sidebar.header("Date Filter")
 selected_date = st.sidebar.selectbox(
@@ -266,18 +265,21 @@ st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 
 # Keyword filter in sidebar
 st.sidebar.header("Keyword Filter")
-keyword_input = st.sidebar.text_input("Search Keyword", key='keyword_input')
+def on_search():
+    st.session_state.keyword = st.session_state.keyword_input
 
-# Add search and reset buttons
-search_button = st.sidebar.button("Search")
-reset_button = st.sidebar.button("Reset")
+keyword_input = st.sidebar.text_input(
+    "Search Keyword",
+    key='keyword_input',
+    on_change=on_search
+)
 
-# Update the keyword in the session state when search is clicked or reset the keyword when reset is clicked
-if search_button:
-    st.session_state.keyword = keyword_input
-if reset_button:
+def on_reset():
     st.session_state.keyword = ''
     st.session_state.keyword_input = ''
+
+search_button = st.sidebar.button("Search", on_click=on_search)
+reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 def display_articles(df):
     if not df.empty:
