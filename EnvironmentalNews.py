@@ -287,7 +287,8 @@ reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 st.sidebar.markdown(
     "![GitHub](https://image.flaticon.com/icons/png/512/25/25231.png)"
-    "(https://github.com/nammmx/Environmental-News-Scraper)"
+    "(https://github.com/nammmx/Environmental-News-Scraper)", 
+    unsafe_allow_html=True
 )
 
 
