@@ -6,6 +6,7 @@ import datetime
 
 # Set up Streamlit page configuration and CSS styling (omitted for brevity)
 st.set_page_config(layout="wide")
+
 st.markdown('''
 <style>
 @import url('https://fonts.googleapis.com/css?family=Heebo'); 
@@ -227,25 +228,29 @@ full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, 
 st.write("Total articles fetched:", full_df.shape[0])  # Debugging statement
 
 # Setup date filters for sidebar
-min_date = datetime.date(2024, 4, 19)
+min_date = datetime.date(2022, 1, 1)  # Adjust to an appropriate minimum date based on your data
 max_date = datetime.date.today()
 
 date_list = pd.date_range(min_date, max_date, freq='d').tolist()
 date_list_filter = [date.strftime("%Y-%m-%d") for date in date_list]
 
-st.sidebar.header("Date Filter")
-
 def format_date(date_str):
-    return datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime('%b. %d, %Y')
+    return datetime.datetime.strptime(date_str, "%Y-%m-%d").strftime('%b %d, %Y')
 
 def update_date(option):
-    st.session_state.selected_dates = [option]
+    st.session_state.selected_dates = [datetime.datetime.strptime(option, "%Y-%m-%d").date()]
 
+if 'selected_dates' not in st.session_state:
+    st.session_state.selected_dates = [max_date]
+
+st.sidebar.header("Date Filter")
 option = st.sidebar.selectbox(
     "Select Date",
     options=date_list_filter,
-    index=0,
-    format_func=format_date
+    index=len(date_list_filter) - 1,
+    format_func=format_date,
+    on_change=update_date,
+    key="date_select"
 )
 
 st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
@@ -257,7 +262,6 @@ keyword = st.sidebar.text_input("Search Keyword", "")
 
 # Define a function to filter data and display articles
 def display_articles(df):
-    st.write("Displaying articles:", df.shape[0])  # Debugging statement
     if not df.empty:
         df.sort_values("date_created", ascending=False, inplace=True)
         for index, row in df.iterrows():
@@ -272,7 +276,7 @@ def display_articles(df):
                 st.divider()
 
 # Filter data based on selected dates and keyword and display in tabs
-selected_date_df = full_df[full_df['date_created'].dt.strftime('%Y-%m-%d').isin(st.session_state.selected_dates)]
+selected_date_df = full_df[full_df['date_created'].dt.date.isin(st.session_state.selected_dates)]
 st.write("Filtered by date:", selected_date_df.shape[0])  # Debugging statement
 
 if keyword:
