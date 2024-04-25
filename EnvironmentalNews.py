@@ -272,6 +272,7 @@ def on_search():
 
 keyword_input = st.sidebar.text_input(
     "Search Keyword",
+    placeholder='Search Keyword',
     label_visibility= "collapsed",
     key='keyword_input',
     on_change=on_search
