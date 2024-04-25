@@ -253,7 +253,6 @@ if 'date_select' not in st.session_state:
 
 st.sidebar.header("Date Filter")
 selected_date = st.sidebar.selectbox(
-    "Select Date",
     options=date_list_filter,
     index=0,
     format_func=format_date,
