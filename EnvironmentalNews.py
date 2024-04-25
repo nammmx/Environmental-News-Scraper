@@ -262,7 +262,7 @@ selected_date = st.sidebar.selectbox(
     key='date_select'
 )
 
-st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[1]))
+st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[0]))
 st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 
 # Keyword filter in sidebar
