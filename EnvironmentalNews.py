@@ -248,6 +248,9 @@ if 'selected_dates' not in st.session_state:
 if 'date_select' not in st.session_state:
     st.session_state['date_select'] = date_list_filter[0]
 
+if 'keyword' not in st.session_state:
+    st.session_state['keyword'] = ''
+
 st.sidebar.header("Date Filter")
 selected_date = st.sidebar.selectbox(
     "Select Date",
@@ -263,7 +266,18 @@ st.sidebar.button("All Time", on_click=lambda: update_date(date_list_filter))
 
 # Keyword filter in sidebar
 st.sidebar.header("Keyword Filter")
-keyword = st.sidebar.text_input("Search Keyword", "")
+keyword_input = st.sidebar.text_input("Search Keyword", key='keyword_input')
+
+# Add search and reset buttons
+search_button = st.sidebar.button("Search")
+reset_button = st.sidebar.button("Reset")
+
+# Update the keyword in the session state when search is clicked or reset the keyword when reset is clicked
+if search_button:
+    st.session_state.keyword = keyword_input
+if reset_button:
+    st.session_state.keyword = ''
+    st.session_state.keyword_input = ''
 
 def display_articles(df):
     if not df.empty:
@@ -282,11 +296,11 @@ def display_articles(df):
 # Filter data based on selected dates and keyword and display in tabs
 selected_date_df = full_df[full_df['date_created'].dt.date.isin(st.session_state.selected_dates)]
 
-if keyword:
-    selected_date_df = selected_date_df[selected_date_df['title'].str.contains(keyword, case=False) |
-                                         selected_date_df['summary'].str.contains(keyword, case=False) |
-                                         selected_date_df['topic'].str.contains(keyword, case=False) |
-                                         selected_date_df['topic_2'].str.contains(keyword, case=False)]
+if st.session_state.keyword:
+    selected_date_df = selected_date_df[selected_date_df['title'].str.contains(st.session_state.keyword, case=False) |
+                                         selected_date_df['summary'].str.contains(st.session_state.keyword, case=False) |
+                                         selected_date_df['topic'].str.contains(st.session_state.keyword, case=False) |
+                                         selected_date_df['topic_2'].str.contains(st.session_state.keyword, case=False)]
 
 topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
           "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
