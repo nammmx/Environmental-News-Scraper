@@ -243,7 +243,10 @@ def update_date(option):
         st.session_state.selected_dates = [datetime.datetime.strptime(option, "%Y-%m-%d").date()]
 
 if 'selected_dates' not in st.session_state:
-    st.session_state.selected_dates = [max_date]
+    st.session_state['selected_dates'] = [max_date]
+
+if 'date_select' not in st.session_state:
+    st.session_state['date_select'] = date_list_filter[0]
 
 st.sidebar.header("Date Filter")
 selected_date = st.sidebar.selectbox(
@@ -251,7 +254,8 @@ selected_date = st.sidebar.selectbox(
     options=date_list_filter,
     index=0,
     format_func=format_date,
-    on_change=lambda: update_date(st.session_state['date_select'])
+    on_change=lambda: update_date(st.session_state['date_select']),
+    key='date_select'
 )
 
 st.sidebar.button("Today", on_click=lambda: update_date(date_list_filter[-1]))
