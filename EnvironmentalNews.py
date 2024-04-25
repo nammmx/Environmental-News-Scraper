@@ -285,7 +285,11 @@ def on_reset():
 search_button = st.sidebar.button("Search", on_click=on_search)
 reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
-st.sidebar.markdown("[![GitHub](https://image.flaticon.com/icons/png/512/25/25231.png)](https://github.com/nammmx/Environmental-News-Scraper)")
+st.sidebar.markdown(
+    "![GitHub](https://image.flaticon.com/icons/png/512/25/25231.png)"
+    "(https://github.com/nammmx/Environmental-News-Scraper)"
+)
+
 
 def display_articles(df):
     if not df.empty:
