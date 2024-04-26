@@ -292,19 +292,13 @@ reset_button = st.sidebar.button("Reset", on_click=on_reset)
 
 st.sidebar.write("")
 st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
-st.sidebar.write("")
+
 st.sidebar.markdown(
     '<div style="text-align: center;">'
     '<a href="https://github.com/nammmx/Environmental-News-Scraper" '
     'style="text-decoration: none; color: inherit;">'
     '<img src="https://res.cloudinary.com/drwsupfyj/image/upload/v1714026198/environmentalnewsscraper/vbbpbt86no6rmbue5xs5.png" '
-    'style="width: 28%;" /><br>'
+    'style="width: 25%;" /><br>'
     '<span style="color: rgba(23, 48, 28, 0.95);">View on GitHub</span>'
     '</a>'
     '</div>',
