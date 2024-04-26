@@ -24,9 +24,9 @@ body hr {
 div[data-testid="stToolbarActions"] {
     visibility:hidden;
 }
-
+/*
 #MainMenu {visibility: hidden;}
-
+*/
 footer {visibility: hidden;}
 
 div[data-baseweb="tab-panel"] {
