@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
 from transformers import pipeline
-from datetime import datetime
 import io
 from stability_sdk import client
 import cloudinary
@@ -396,7 +395,7 @@ def process_articles(session, summarizer):
     source_url = "https://www.theguardian.com/environment/all"
     response = requests.get(source_url)
     soup = BeautifulSoup(response.text, "lxml")
-    date_guardian = datetime.now().strftime('%#d-%B-%Y').lower()
+    date_guardian = datetime.datetime.now().strftime('%#d-%B-%Y').lower()
     section_guardian = soup.find("section", {"id": date_guardian})
     
     existing_links = {link[0] for link in session.execute(text("SELECT link FROM news")).fetchall()}
