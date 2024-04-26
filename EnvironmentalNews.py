@@ -228,7 +228,7 @@ div[data-testid="stCaptionContainer"] {
 db_url = f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}"
 engine = create_engine(db_url)
 
-@st.experimental_memo(ttl=1800)
+@st.cache_data(ttl=1800)
 def execute_query(query):
     with engine.connect() as connection:
         result = pd.read_sql_query(query, connection)
