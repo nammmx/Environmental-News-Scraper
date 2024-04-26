@@ -367,7 +367,7 @@ for tab, topic in zip(tabs, topics):
 ############################################################################################
 # Database setup using SQLAlchemy
 def create_session(user, password, host, port, db):
-    engine = create_engine(f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}")
+    engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
     Session = sessionmaker(bind=engine)
     return Session()
 
