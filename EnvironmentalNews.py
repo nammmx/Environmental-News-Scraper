@@ -147,7 +147,10 @@ div[data-testid="stMarkdownContainer"] h2 {
 div[data-testid="stExpander"] > details {
     bordder-radius: 0;
     border-color: rgba(255, 255, 255, 0.05);
+    max-width: 74rem;
 }
+
+
 div[data-baseweb="tab-panel"] > div:nth-child(1) > div:nth-child(1) {
     gap: 0.5rem;
 }
