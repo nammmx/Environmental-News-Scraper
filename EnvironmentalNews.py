@@ -3,6 +3,17 @@ import pandas as pd
 from sqlalchemy import create_engine
 from PIL import Image
 import datetime
+import requests
+from bs4 import BeautifulSoup
+from sqlalchemy import text
+from sqlalchemy.orm import sessionmaker
+from transformers import pipeline
+from datetime import datetime
+import io
+from stability_sdk import client
+import cloudinary
+import cloudinary.uploader
+import openai
 
 # Set up Streamlit page configuration
 st.set_page_config(layout="wide")
@@ -308,11 +319,6 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-
-
-
-
-
 def display_articles(df):
     if not df.empty:
         df.sort_values("date_created", ascending=False, inplace=True)
@@ -339,9 +345,6 @@ if st.session_state.keyword:
 topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
           "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
 
-
-
-
 selected_dates = st.session_state.get('selected_dates', [])
 if not selected_dates:
     result_display = "Today"
@@ -353,12 +356,7 @@ else:
     result_display = format_date(st.session_state['date_select'])
 st.header(f"News from {result_display}")
 
-
-
-
 tabs = st.tabs(topics)
-
-
 for tab, topic in zip(tabs, topics):
     with tab:
         if topic != "All":
@@ -366,3 +364,121 @@ for tab, topic in zip(tabs, topics):
         else:
             topic_df = selected_date_df
         display_articles(topic_df)
+
+############################################################################################
+# Database setup using SQLAlchemy
+def create_session(user, password, host, port, db):
+    engine = create_engine(f'postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}')
+    Session = sessionmaker(bind=engine)
+    return Session()
+
+# Cloudinary configuration
+def configure_cloudinary():
+    cloudinary.config(
+        cloud_name=st.secrets['cloudinary_cloud_name'], 
+        api_key=st.secrets['cloudinary_api_key'], 
+        api_secret=st.secrets['cloudinary_api_secret']
+    )
+
+# AI tools setup
+def setup_ai_tools():
+    openai.api_key = st.secrets['openai_api_key']
+    stability_api = client.StabilityInference(
+        key=st.secrets['stability_api_key'], 
+        verbose=True, 
+        engine="stable-diffusion-xl-1024-v1-0"
+    )
+    summarizer = pipeline("summarization", model="facebook/bart-large-cnn", tokenizer="facebook/bart-large-cnn")
+    return summarizer, stability_api
+
+# Process articles
+def process_articles(session, summarizer):
+    source_url = "https://www.theguardian.com/environment/all"
+    response = requests.get(source_url)
+    soup = BeautifulSoup(response.text, "lxml")
+    date_guardian = datetime.now().strftime('%#d-%B-%Y').lower()
+    section_guardian = soup.find("section", {"id": date_guardian})
+    
+    existing_links = {link[0] for link in session.execute(text("SELECT link FROM news")).fetchall()}
+
+    for article in section_guardian.find_all("a", class_="u-faux-block-link__overlay js-headline-text"):
+        href = article.get("href")
+        if href not in existing_links:
+            content, summary, topics = fetch_and_summarize_article(href, summarizer)
+            if content:
+                topic1, topic2 = topics.split('-')
+                insert_article(session, article.text, href, content, summary, topic1, topic2)
+
+# Fetch and summarize articles
+def fetch_and_summarize_article(href, summarizer):
+    response = requests.get(href)
+    soup = BeautifulSoup(response.text, "lxml")
+    content = ' '.join(p.text for p in soup.find_all("p"))
+    summary = summarizer(content, min_length=150, max_length=300, truncation=True)[0]['summary_text']
+    topics = chatgpt_topic(content)
+    return content, summary, topics
+
+def chatgpt_topic(article):
+    response = openai.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": f"""Determine the 2 topic that best fits the news article below. topic1 is the topic that fits the article the best. topic2 is the topic that fits the article 2nd best. Pick only from these topics and dont make up new topics: "Business & Innovation", "Climate Change", "Crisis", "Energy", "Politics & Law", "Fossil Fuel", "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation" Return your answer in the following format: topic1-topic2
+                News article: {article} 
+            """,
+            }
+        ],
+        model="gpt-3.5-turbo"
+    )
+    return response.choices[0].message.content
+
+def insert_article(session, title, href, content, summary, topic1, topic2):
+    session.execute(text("""
+        INSERT INTO news (source, title, link, article, summary, topic, topic_2)
+        VALUES (:source, :title, :link, :article, :summary, :topic1, :topic2)
+        ON CONFLICT (link) DO NOTHING;
+    """), {'source': 'Guardian', 'title': title, 'link': href, 'article': content, 'summary': summary, 'topic1': topic1, 'topic2': topic2})
+    session.commit()
+
+# Image handling
+def convert_to_jpeg(img):
+    with io.BytesIO() as buffer:
+        img.save(buffer, format='JPEG')
+        buffer.seek(0)
+        return buffer.getvalue()
+
+def upload_image(img_data, public_id):
+    response = cloudinary.uploader.upload(img_data, folder="environmentalnewsscraper/news_photographs/", public_id=public_id, overwrite=True)
+    return response['url']
+
+def generate_and_upload_images(session, stability_api):
+    articles = session.execute(text("SELECT news_id, title, summary FROM news WHERE image IS NULL")).fetchall()
+    for article in articles:
+        try:
+            img_url = generate_image(stability_api, article.title, article.summary)
+            session.execute(text("UPDATE news SET image = :image WHERE news_id = :id"), {'image': img_url, 'id': article.news_id})
+            session.commit()
+        except Exception as e:
+            print(f"Error processing image for article {article.title}: {e}")
+
+def generate_image(stability_api, title, summary):
+    prompt = f"Create a single realistic image for an environmental news website. The title is: {title}. The content is: {summary}."
+    response = stability_api.generate(prompt=prompt, steps=30, cfg_scale=8.0, width=1024, height=1024, style_preset="photographic")
+    for resp in response:
+        img = Image.open(io.BytesIO(resp.artifacts[0].binary))
+        img_jpeg = convert_to_jpeg(img)
+        public_id = ''.join(c for c in title if c not in '?&#%<>/+')
+        public_id = public_id.strip()
+        return upload_image(img_jpeg, public_id)
+
+# Main function
+def main():
+    session = create_session(st.secrets['username'], st.secrets['pwd'], st.secrets['hostname'], st.secrets['port_id'], st.secrets['database'])
+    configure_cloudinary()
+    summarizer, stability_api = setup_ai_tools()
+    process_articles(session, summarizer)
+    generate_and_upload_images(session, stability_api)
+
+if st.sidebar.button('Scrape'):
+    main()  # This will run your script when the button is clicked
+
