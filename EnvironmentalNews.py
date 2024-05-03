@@ -333,8 +333,8 @@ if st.session_state.keyword:
                                          selected_date_df['topic'].str.contains(st.session_state.keyword, case=False) |
                                          selected_date_df['topic_2'].str.contains(st.session_state.keyword, case=False)]
 
-topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Environmental Law", "Fossil Fuel",
-          "Lifestyle", "Pollution", "Society", "Water", "Wildlife & Conservation"]
+topics = ["All", "Business & Innovation", "Climate Change", "Crisis", "Energy", "Fossil Fuel",
+          "Lifestyle", "Politics & Law", "Pollution", "Society", "Water", "Wildlife & Conservation"]
 
 
 
