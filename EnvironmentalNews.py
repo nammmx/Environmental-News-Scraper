@@ -231,8 +231,6 @@ full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, 
                            FROM news WHERE article != '' AND image != '';""")
 full_df['date_created'] = pd.to_datetime(full_df['date_created'])
 
-st.write("Full DataFrame:", full_df)
-
 # Setup date filters for sidebar
 min_date = datetime.date(2024, 8, 19)  # Adjust as necessary
 max_date = datetime.date.today()
