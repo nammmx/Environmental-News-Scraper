@@ -216,7 +216,6 @@ div[data-testid="stCaptionContainer"] {
 ''', unsafe_allow_html=True)
 
 
-
 # Database connection setup using SQLAlchemy
 db_url = f"postgresql://{st.secrets['username']}:{st.secrets['pwd']}@{st.secrets['hostname']}:{st.secrets['port_id']}/{st.secrets['database']}"
 engine = create_engine(db_url)
@@ -231,6 +230,8 @@ def execute_query(query):
 full_df = execute_query("""SELECT news_id, date_created, title, topic, summary, link, image, topic_2
                            FROM news WHERE article != '' AND image != '';""")
 full_df['date_created'] = pd.to_datetime(full_df['date_created'])
+
+st.write("Full DataFrame:", full_df)
 
 # Setup date filters for sidebar
 min_date = datetime.date(2024, 8, 19)  # Adjust as necessary
@@ -364,3 +365,5 @@ for tab, topic in zip(tabs, topics):
         else:
             topic_df = selected_date_df
         display_articles(topic_df)
+
+
