@@ -13,7 +13,7 @@ This project automates the extraction, summarization, and categorization of envi
 ## Features
 
 - **Automated Scraping**: Fetches daily environmental news from "The Guardian".
-- **Text Summarization**: Summarizes the articles using NLP models.
+- **Text Summarization**: Summarizes the articles using Transformer models.
 - **Topic Detection**: Utilizes OpenAI's language models to classify articles into predefined topics.
 - **Image Generation**: Generates images relevant to the articles using Stability AI.
 - **Cloud Image Storage**: Manages image uploads and storage via Cloudinary.
