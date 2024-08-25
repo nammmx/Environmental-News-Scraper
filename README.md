@@ -80,10 +80,10 @@ Generates images based on article summaries and uploads them to Cloudinary. This
   - Upload the image and update the article record with the image URL.
  
 ## Deployment
-- Create Docker-AWS image with scrape function and Transformer model
-- Deploy Docker image to AWS ECR
-- Create Lambda function using Docker image from ECR
-  - Set up VPC with internet access for lambda function
+- Create Docker-AWS image with scrape function and Transformer model (https://www.youtube.com/watch?v=nZU9_2bTNTM)
+- Deploy Docker image to AWS ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
+- Create Lambda function using Docker image from ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
+  - Set up VPC with internet access for lambda function (https://www.youtube.com/watch?v=Z3dMhPxbuG0&t=136s)
 - Set schedule to run Lambda function daily
 
 ## Acknowledgments
