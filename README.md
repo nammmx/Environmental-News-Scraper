@@ -8,6 +8,7 @@ This project automates the extraction, summarization, and categorization of envi
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Detailed Function Documentation](#detailed-function-documentation)
+- [Deployment](#deployment)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
@@ -27,6 +28,7 @@ This project automates the extraction, summarization, and categorization of envi
 - **Pillow**: For handling image processing tasks.
 - **Stability SDK & Cloudinary**: For generating and uploading images.
 - **OpenAI**: For generating text completions and classifications.
+- **Streamlit**: For Front-end.
 
 ## Detailed Function Documentation
 
@@ -76,6 +78,13 @@ Generates images based on article summaries and uploads them to Cloudinary. This
   - For each article, generate an image based on its title and summary.
   - Convert the image to JPEG format.
   - Upload the image and update the article record with the image URL.
+ 
+## Deployment
+- Create Docker-AWS image with scrape function and Transformer model
+- Deploy Docker image to AWS ECR
+- Create Lambda function using Docker image from ECR
+  - Set up VPC with internet access for lambda function
+- Set schedule to run Lambda function daily
 
 ## Acknowledgments
 
