@@ -85,7 +85,7 @@ Generates images based on article summaries and uploads them to Cloudinary. This
 - Create Lambda function using Docker image from ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
   - Set up VPC with internet access for lambda function (https://www.youtube.com/watch?v=Z3dMhPxbuG0&t=136s)
 - Set schedule to run daily: (3 separate lambda functions and schedules)
-  - Everyday at 09:45 and 21:45 a NAT Gateway is created (lower cost than keep NAT Gateway running 24/7)
+  - Everyday at 09:45 and 21:45 a NAT Gateway is created (lower cost compared to keeping NAT Gateway active 24/7)
   - Everyday at 10:00 and 22:00 the scrape function is executed
   - Everyday at 10:20 and 22:20 the NAT Gateway is deleted
 
