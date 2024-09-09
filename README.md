@@ -7,7 +7,7 @@ This project automates the extraction, summarization, and categorization of envi
 
 - [Features](#features)
 - [Technology Stack](#technology-stack)
-- [Detailed Function Documentation](#detailed-function-documentation)
+- [Detailed Workflow](#detailed-workflow)
 - [Deployment](#deployment)
 - [Acknowledgments](#acknowledgments)
 
@@ -30,55 +30,69 @@ This project automates the extraction, summarization, and categorization of envi
 - **OpenAI**: For generating text completions and classifications.
 - **Streamlit**: For Front-end.
 
-## Detailed Function Documentation
+## Detailed Workflow
 
-### Database Connection
+1. **Environment Setup**  
+   - **Input**: None directly.
+   - **Output**: Environment variables for Hugging Face models are set, and necessary libraries (requests, BeautifulSoup, SQLAlchemy, AI tools, etc.) are imported.
 
-#### `create_session(user, password, host, port, db)`
-Initializes a connection to the PostgreSQL database using SQLAlchemy. This function creates an `engine` and a session maker that returns a session object to interact with the database, enabling transaction management.
+2. **Logging Setup**  
+   - **Input**: None.
+   - **Output**: Basic logging configuration is established to track function calls and errors.
 
-- **Parameters**:
-  - `user`: Username for the database.
-  - `password`: Password for the database access.
-  - `host`: Database server host URL.
-  - `port`: Port on which the database server is listening.
-  - `db`: Name of the database to connect to.
+3. **Database Session: `create_session()`**
+   - **Input**: Database credentials (`user`, `password`, `host`, `port`, `db`).
+   - **Output**: Creates a PostgreSQL database session using SQLAlchemy, returning a session object for further use in interacting with the database.
 
-### Cloudinary Configuration
+4. **AI Tools Setup: `setup_ai_tools()`**
+   - **Input**: None directly (uses model paths and API keys from environment/credentials).
+   - **Output**: Initializes a BART summarizer (using the `bart-large-cnn` model) and a Stability AI client for image generation. Returns the summarizer and Stability AI client.
 
-#### `configure_cloudinary()`
-Configures the Cloudinary service with the required credentials for API access, setting up the environment for future image uploads. This configuration is necessary for the `upload_image` function to operate correctly.
+5. **Cloudinary Configuration: `configure_cloudinary()`**
+   - **Input**: Cloudinary credentials (`cloud_name`, `api_key`, `api_secret`).
+   - **Output**: Configures Cloudinary for uploading images. No explicit output, but Cloudinary is now ready for use.
 
-### AI Tools Initialization
+6. **Article Processing: `process_articles()`**
+   - **Input**: Database session, summarizer from `setup_ai_tools()`.
+   - **Output**:
+     - Scrapes articles from The Guardian environment section.
+     - Checks for already-existing articles by querying the database for recent links.
+     - Calls `fetch_and_summarize_article()` for each new article, processing up to 10 new articles.
+     - Inserts new articles into the database using `insert_article()`.
 
-#### `setup_ai_tools()`
-Sets up the AI models used for text summarization and image generation. This function initializes a summarization pipeline using models from Hugging Face's Transformers library and configures the Stability AI client for generating images based on textual descriptions.
+7. **Fetch and Summarize Articles: `fetch_and_summarize_article()`**
+   - **Input**: Article URL (`href`), summarizer from `setup_ai_tools()`.
+   - **Output**:
+     - Scrapes the article content from the provided URL.
+     - Truncates the content to 1024 tokens using Hugging Face's BART tokenizer.
+     - Generates a summary of the truncated content with the BART model.
+     - Calls `chatgpt_topic()` to determine the two most fitting topics.
+     - Returns the truncated article content, generated summary, and two topics.
 
-- **Returns**:
-  - A tuple containing the initialized summarizer and Stability AI client objects.
+8. **Topic Assignment: `chatgpt_topic()`**
+   - **Input**: Truncated article content.
+   - **Output**: Sends the article content to OpenAI GPT with a predefined list of topics. GPT returns two topics in the format `topic1-topic2`, where `topic1` is the best-fitting topic and `topic2` is the second-best.
 
-### Article Processing
+9. **Insert Article into Database: `insert_article()`**
+   - **Input**: Database session, article title, URL (`href`), content, summary, and topics (`topic1`, `topic2`).
+   - **Output**: Inserts the article, summary, and topics into the `news` table in PostgreSQL. If the article link already exists, it skips the insertion (`ON CONFLICT DO NOTHING`).
 
-#### `process_articles(session, summarizer)`
-Orchestrates the end-to-end process of fetching, summarizing, and storing articles. It scrapes the website, checks for new articles, processes each new article for summarization and topic detection, and finally stores them in the database. Each run only processes 10 articles due to runtime limits of AWS Lambda Functions.
+10. **Upload Image to Cloudinary: `upload_image()`**
+    - **Input**: Image data (in bytes) and a `public_id` (derived from the article title).
+    - **Output**: Uploads the image to Cloudinary using the provided image data and public ID. Returns the URL of the uploaded image or `None` if an error occurs.
 
-- **Detailed Steps**:
-  - Fetches the HTML content of the page.
-  - Parses the HTML to find articles.
-  - Checks existing entries in the database to avoid duplicates.
-  - For each new article, extracts content, generates a summary, and detects topics.
+11. **Generate Image with Stability AI: `generate_image()`**
+    - **Input**: Stability AI client, article title, and summary.
+    - **Output**:
+      - Generates an image from a prompt that includes the title and summary using Stability AI’s Stable Diffusion model.
+      - Converts the generated image to JPEG format in memory.
+      - Returns the image data as a byte string and calls `upload_image()` to upload the image to Cloudinary, returning the image URL.
 
-### Image Handling
-
-#### `generate_and_upload_images(session, stability_api)`
-Generates images based on article summaries and uploads them to Cloudinary. This function loops through all articles that do not yet have an associated image, generates an image using Stability AI, and uploads the image using the configured Cloudinary client.
-
-- **Process Flow**:
-  - Retrieve articles needing images from the database.
-  - For each article, generate an image based on its title and summary.
-  - Convert the image to JPEG format.
-  - Upload the image and update the article record with the image URL.
- 
+12. **Generate and Upload Images: `generate_and_upload_images()`**
+    - **Input**: Database session, Stability AI client.
+    - **Output**:
+      - Queries the `news` table to fetch articles without images.
+      - For each article, calls `generate_image()` to create an image, uploads it using `upload_image()`, and updates the article’s database entry with the image URL. 
 ## Deployment
 - Create Docker-AWS image with scrape function and Transformer model (https://www.youtube.com/watch?v=nZU9_2bTNTM)
 - Deploy Docker image to AWS ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
