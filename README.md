@@ -96,6 +96,9 @@ This project automates the extraction, summarization, and categorization of envi
 ## Deployment
 - Create Docker-AWS image with scrape function and Transformer model (https://www.youtube.com/watch?v=nZU9_2bTNTM)
 - Deploy Docker image to AWS ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
+- Create Lambda function using Docker image from ECR
+- Set schedule to run daily at 10:00 and 22:00
+### If Using VPC
 - Create Lambda function using Docker image from ECR (https://www.youtube.com/watch?v=nZU9_2bTNTM)
   - Set up VPC with internet access for lambda function (https://www.youtube.com/watch?v=Z3dMhPxbuG0&t=136s)
 - Set schedule to run daily: (3 separate lambda functions and schedules)
